@@ -36,12 +36,24 @@ Players = Base.classes.players
 Guesses = Base.classes.guesses
 Games = Base.classes.games
 
+
 # turns the sqlalchemy orm object into json format
 def serialize(obj):
+    if type(obj) is list:
+        return serialize_list(obj)
     data = obj.__dict__
     keys_to_remove = ['_sa_instance_state', '__len__']
     for k in keys_to_remove:
         data.pop(k, None)
+    return data
+
+
+# turn the list of sqlalchemy.orm objects into json format
+def serialize_list(obj):
+    data = []
+    for item in obj:
+        new_item = serialize(item)
+        data.append(new_item)
     return data
 
 
@@ -56,13 +68,18 @@ def serialize(obj):
 # /recipe?game_id=1&guesses=xxxx
 # This route retrieves information about a specific game (game_id, player_one_id, player_two_id (default: computer),
 # result, secret_code, num_attempts, max_attempts, played on_
+# and list_of_guesses for a specific game_id from guesses table
 @app.route('/games/<int:game_id>', methods=['GET'])
 def get_game_id(game_id):
     game = Games.query.get(game_id)
+    guesses = Guesses.query.filter_by(game_id=game_id).all()
     if request.headers.get('Accept') == "application/json":
-        return serialize(game)
+        game_json = serialize(game)
+        list_of_guesses_json = serialize(guesses)
+        data = {"game": game_json, "guesses": list_of_guesses_json}
+        return jsonify(data)
     else:
-        return render_template('game.html', game=game)
+        return render_template('game.html', game=game, guesses=guesses)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5038)
