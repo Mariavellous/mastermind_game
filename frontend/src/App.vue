@@ -1,6 +1,8 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from '@/components/HelloWorld.vue'
+import ActionButtons from '@/components/ActionButtons.vue'
+import PlayerGuess from '@/components/PlayerGuess.vue'
 </script>
 
 <template>
@@ -16,6 +18,10 @@ import HelloWorld from '@/components/HelloWorld.vue'
       </nav>
     </div>
   </header>
+
+  <PlayerGuess />
+  <ActionButtons />
+
 
   <RouterView />
 </template>
