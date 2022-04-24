@@ -1,9 +1,8 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from '@/components/HelloWorld.vue'
-import ActionButtons from '@/components/ActionButtons.vue'
-import PlayerGuess from '@/components/PlayerGuess.vue'
-import Hint from '@/components/Hint.vue'
+import GetGame from '@/components/GetGame.vue'
+import PlayMode from '@/views/PlayMode.vue'
 </script>
 
 <template>
@@ -20,9 +19,12 @@ import Hint from '@/components/Hint.vue'
     </div>
   </header>
 
-  <PlayerGuess />
-  <ActionButtons />
-  <Hint />
+  <GetGame />
+  <PlayMode />
+
+  <!--  Maybe a link instead of a button to start play mode-->
+<!-- <button @click="play"> Play  </button>  -->
+
 
 
   <RouterView />

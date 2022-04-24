@@ -76,13 +76,11 @@ def home():
 def get_game_id(game_id):
     game = Games.query.get(game_id)
     guesses = Guesses.query.filter_by(game_id=game_id).all()
-    if request.headers.get('Accept') == "application/json":
-        game_json = serialize(game)
-        list_of_guesses_json = serialize(guesses)
-        data = {"game": game_json, "guesses": list_of_guesses_json}
-        return jsonify(data)
-    else:
-        return render_template('game.html', game=game, guesses=guesses)
+    game_json = serialize(game)
+    list_of_guesses_json = serialize(guesses)
+    data = {"game": game_json, "guesses": list_of_guesses_json}
+    return jsonify(data)
+
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5038)
+    app.run(host='0.0.0.0', port=5037)

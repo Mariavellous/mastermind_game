@@ -2,7 +2,8 @@
   export default {
     data() {
       return {
-        number_of_choices: 4
+        number_of_choices: 4,
+        max_attempt_allowed: 10
       }
     }
   }
@@ -12,9 +13,11 @@
 <template>
   <div>
     <h1> Player Guess </h1>
-    <div class="playerguess">
-      <button v-for="index in number_of_choices" :key="index" class="red"> __
+    <div v-for="index in max_attempt_allowed" :key="index" class="playerguess">
+      {{ index }} <button v-for="index in number_of_choices" :key="index" class="line"> __
       </button>
+      <button v-for="index in number_of_choices" :key="index" class="hint"> 🔘 </button>
+
     </div>
 
   </div>
@@ -26,8 +29,12 @@
     font-size: 5rem
   }
 
-  .red {
-    color: darkred;
+  .line {
+    color: darkgrey;
 
+  }
+
+  .hint {
+    font-size: 1rem
   }
 </style>

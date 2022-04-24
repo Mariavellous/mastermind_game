@@ -3,17 +3,17 @@
   <div>
     <div class="wrap">
       <h1> ICON CHOICES </h1>
-      <button :click="submit"> 🤵‍♂️️‍</button>
-      <button :click="submit"> 👰‍♀️</button>
-      <button :click="submit"> 💒</button>
-      <button :click="submit"> 💐</button>
-      <button :click="submit"> 🔔</button>
-      <button :click="submit"> ❤️</button>
-      <button :click="submit"> 🫶</button>
-      <button :click="submit"> 🎊</button>
+      <button> 🤵‍♂️️‍</button>
+      <button> 👰‍♀️</button>
+      <button> 💒</button>
+      <button> 💐</button>
+      <button> 🔔</button>
+      <button> ❤️</button>
+      <button> 🫶</button>
+      <button> 🎊</button>
     </div>
 
-    <button :click="submit"> Submit </button>
+    <button> Submit </button>
 
   </div>
 
