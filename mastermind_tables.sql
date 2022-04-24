@@ -22,7 +22,7 @@ CREATE TABLE games(
     result BOOLEAN DEFAULT FALSE,
     secret_code VARCHAR(6) NOT NULL,
     number_of_attempts INTEGER DEFAULT 0,
-    max_attempts_allowed INTEGER NOT NULL,
+    max_attempts_allowed INTEGER DEFAULT 10 NOT NULL,
     played_on timestamp
 );
 
@@ -36,11 +36,13 @@ CREATE TABLE guesses(
     hint VARCHAR(6) NOT NULL
 );
 
-INSERT INTO players(first_name, last_name, email_address, password)
-VALUES ('Computer', 'Computer', 'computer@example.com', 'password');
+
 
 INSERT INTO players(first_name, last_name, email_address, password)
-VALUES('Melanie', 'Alcaide', 'melanie@gmail.com', 'melanie');
+VALUES('Melanie', 'Alcaide', 'mariamelanie@gmail.com', 'melanie');
+
+INSERT INTO players(first_name, last_name, email_address, password)
+VALUES ('Computer', 'Computer', 'example@gmail.com', 'example');
 
 INSERT INTO games(player_one_id, player_two_id, secret_code, max_attempts_allowed, played_on)
 VALUES (1, 2, '1234', 8, CURRENT_TIMESTAMP);

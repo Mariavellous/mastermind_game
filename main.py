@@ -1,10 +1,17 @@
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import insert
 from sqlalchemy.ext.automap import automap_base
 import os
 # enable Cross-Origin Resource Sharing (CORS) in Flask, since our front-and back-end will be served on separate ports
 from flask_cors import CORS
 import psycopg2
+# make API requests
+import requests
+from datetime import datetime
+
+
+
 
 # library that takes key values in .env and places them in the "environment/computer" (where app is running)
 from dotenv import load_dotenv
@@ -64,9 +71,58 @@ def serialize_list(obj):
 # db.session.commit()
 
 
+THEME_MAP = {
+    "0": "🤵", "1": "👰️", "2": "💒", "3": "🔔",
+    "4": "💐", "5": "❤️", "6": "🫶", "7": "🎊"
+    }
+
+# Retrieves randomize integers using random.org API and converts it into emojis.
+# Current Theme: Wedding Emojis
+def get_secret_code():
+    RANDOM_INTEGER_URL_API = "https://www.random.org/integers/"
+    params = {
+        "num": 4,
+        "min": 0,
+        "max": 7,
+        "col": 1,
+        "base": 10,
+        "format": "plain",
+        "rnd": "new",
+    }
+    response = requests.get(f"{RANDOM_INTEGER_URL_API}",
+                            params=params)
+    response.raise_for_status()
+    random_integers = response.text.replace("\n", "")
+
+    # Convert random_integers to emoji
+    random_emojis = []
+    for item in random_integers:
+        random_emojis.append(THEME_MAP[item])
+
+    return random_emojis
+
+# print(get_secret_code())
+
+
 @app.route('/')
 def home():
     return render_template('index.html')
+
+
+@app.route('/games', methods=['POST'])
+def create_new_game():
+    # Special Step: fetch secret code
+    secret_code = get_secret_code()
+    print(secret_code)
+    # Special Step: Update Guess table
+    current_player_id = 1
+    # game = Games.query.filter_by(player_one_id=current_player_id).first()
+    new_game = insert(Games).values(player_one_id=current_player_id, secret_code=secret_code, played_on=datetime.now())
+
+    player_guess = [2, 3, 4, 5]
+    return render_template('index.html')
+
+
 
 # /recipe?game_id=1&guesses=xxxx
 # This route retrieves information about a specific game (game_id, player_one_id, player_two_id (default: computer),
