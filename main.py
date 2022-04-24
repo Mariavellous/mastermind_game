@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.automap import automap_base
 import os
-from sqlalchemy_serializer import SerializerMixin
+# enable Cross-Origin Resource Sharing (CORS) in Flask, since our front-and back-end will be served on separate ports
+from flask_cors import CORS
 import psycopg2
 
 # library that takes key values in .env and places them in the "environment/computer" (where app is running)
@@ -14,7 +15,9 @@ app = Flask(__name__)
 # generates the CSRF token similar to the Flask app secret key
 app.config["SECRET_KEY"] = os.environ["MASTERMIND_SECRET_KEY"]
 app.config["DEBUG"] = True
-
+CORS(app)
+CORS(app, resources={r'/*': {'origins': '*'}}, CORS_SUPPORTS_CREDENTIALS=True)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Connect to database
 # creates a new database
@@ -61,9 +64,9 @@ def serialize_list(obj):
 # db.session.commit()
 
 
-# @app.route('/')
-# def home():
-#     return render_template('index.html')
+@app.route('/')
+def home():
+    return render_template('index.html')
 
 # /recipe?game_id=1&guesses=xxxx
 # This route retrieves information about a specific game (game_id, player_one_id, player_two_id (default: computer),

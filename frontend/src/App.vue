@@ -3,6 +3,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from '@/components/HelloWorld.vue'
 import ActionButtons from '@/components/ActionButtons.vue'
 import PlayerGuess from '@/components/PlayerGuess.vue'
+import Hint from '@/components/Hint.vue'
 </script>
 
 <template>
@@ -21,6 +22,7 @@ import PlayerGuess from '@/components/PlayerGuess.vue'
 
   <PlayerGuess />
   <ActionButtons />
+  <Hint />
 
 
   <RouterView />
