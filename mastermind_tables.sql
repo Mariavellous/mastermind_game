@@ -20,7 +20,7 @@ CREATE TABLE games(
     player_two_id INTEGER,
     CONSTRAINT player_two_id_fk FOREIGN KEY (player_two_id) REFERENCES players (id),
     result BOOLEAN DEFAULT FALSE,
-    secret_code VARCHAR(6) NOT NULL,
+    secret_code VARCHAR(30) NOT NULL,
     number_of_attempts INTEGER DEFAULT 0,
     max_attempts_allowed INTEGER DEFAULT 10 NOT NULL,
     played_on timestamp
@@ -32,7 +32,7 @@ CREATE TABLE guesses(
     CONSTRAINT player_id_fk FOREIGN KEY (player_id) REFERENCES players (id),
     game_id INTEGER NOT NULL,
     CONSTRAINT game_id_fk FOREIGN KEY (game_id) REFERENCES games (id),
-    player_guess VARCHAR(20) NOT NULL,
+    player_guess VARCHAR(30) NOT NULL,
     hint VARCHAR(6) NOT NULL
 );
 

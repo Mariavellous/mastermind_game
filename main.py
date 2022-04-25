@@ -6,8 +6,7 @@ import os
 # enable Cross-Origin Resource Sharing (CORS) in Flask, since our front-and back-end will be served on separate ports
 from flask_cors import CORS
 import psycopg2
-# make API requests
-import requests
+from computer import Computer
 from datetime import datetime
 
 
@@ -76,32 +75,33 @@ THEME_MAP = {
     "4": "💐", "5": "❤️", "6": "🫶", "7": "🎊"
     }
 
+computer = Computer()
+
+
 # Retrieves randomize integers using random.org API and converts it into emojis.
 # Current Theme: Wedding Emojis
-def get_secret_code():
-    RANDOM_INTEGER_URL_API = "https://www.random.org/integers/"
-    params = {
-        "num": 4,
-        "min": 0,
-        "max": 7,
-        "col": 1,
-        "base": 10,
-        "format": "plain",
-        "rnd": "new",
-    }
-    response = requests.get(f"{RANDOM_INTEGER_URL_API}",
-                            params=params)
-    response.raise_for_status()
-    random_integers = response.text.replace("\n", "")
-
-    # Convert random_integers to emoji
-    random_emojis = []
-    for item in random_integers:
-        random_emojis.append(THEME_MAP[item])
-
-    return random_emojis
-
-# print(get_secret_code())
+# def get_secret_code():
+#     RANDOM_INTEGER_URL_API = "https://www.random.org/integers/"
+#     params = {
+#         "num": 4,
+#         "min": 0,
+#         "max": 7,
+#         "col": 1,
+#         "base": 10,
+#         "format": "plain",
+#         "rnd": "new",
+#     }
+#     response = requests.get(f"{RANDOM_INTEGER_URL_API}",
+#                             params=params)
+#     response.raise_for_status()
+#     random_integers = response.text.replace("\n", "")
+#
+#     # Convert random_integers to emoji
+#     random_emojis = []
+#     for item in random_integers:
+#         random_emojis.append(THEME_MAP[item])
+#
+#     return random_emojis
 
 
 @app.route('/')
@@ -112,17 +112,26 @@ def home():
 @app.route('/games', methods=['POST'])
 def create_new_game():
     # Special Step: fetch secret code
-    secret_code = get_secret_code()
-    print(secret_code)
+    # secret_code = get_secret_code()
+    secret_code_list = computer.get_secret_code()
     # Special Step: Update Guess table
     current_player_id = 1
+    # turns the list into str for easy storage into database
+    secret_code = "".join(secret_code_list)
+    new_game = Games(player_one_id=current_player_id, secret_code=secret_code, played_on=datetime.now())
+    db.session.add(new_game)
+    db.session.commit()
+    print(secret_code)
     # game = Games.query.filter_by(player_one_id=current_player_id).first()
-    new_game = insert(Games).values(player_one_id=current_player_id, secret_code=secret_code, played_on=datetime.now())
+
 
     player_guess = [2, 3, 4, 5]
     return render_template('index.html')
 
 
+# '[\'💒\', \'🎊\', \'🎊\', \'👰️\']'
+# 3
+# '3'
 
 # /recipe?game_id=1&guesses=xxxx
 # This route retrieves information about a specific game (game_id, player_one_id, player_two_id (default: computer),
