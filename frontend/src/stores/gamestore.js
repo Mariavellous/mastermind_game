@@ -5,10 +5,11 @@ export const useGameStore = defineStore({
 
 
   state: () => ({
-    currentGuess: [],
+    currentGuess: ["4","3"],
     activeRow: 0,
     counter: 0,
-    max_attempt_allowed: 1
+    max_attempt_allowed: 10,
+    max_guesses_allowed: 4,
 
   }),
 
@@ -16,7 +17,6 @@ export const useGameStore = defineStore({
   actions: {
     addEmojiGuess(emoji) {
       this.currentGuess.push(emoji)
-      this.counter++
     },
 
     myCoolAdder() {

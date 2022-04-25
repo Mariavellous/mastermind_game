@@ -9,7 +9,6 @@
     },
     data() {
       return {
-        number_of_choices: 4,
         max_attempt_allowed: 10,
       }
     }
