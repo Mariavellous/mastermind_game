@@ -1,9 +1,16 @@
 <script>
+  import GuessRow from '@/components/GuessRow.vue'
   export default {
+    components: {
+      'GuessRow': GuessRow
+    },
+    mounted() {
+      console.log(GuessRow)
+    },
     data() {
       return {
         number_of_choices: 4,
-        max_attempt_allowed: 10
+        max_attempt_allowed: 10,
       }
     }
   }
@@ -13,11 +20,10 @@
 <template>
   <div>
     <h1> Player Guess </h1>
+<!--    <p>{{$store.counter}}</p>-->
+<!--    Index looping starts at 1 (convert to start at 0)-->
     <div v-for="index in max_attempt_allowed" :key="index" class="playerguess">
-      {{ index }} <button v-for="index in number_of_choices" :key="index" class="line"> __
-      </button>
-      <button v-for="index in number_of_choices" :key="index" class="hint"> 🔘 </button>
-
+      <GuessRow :row="index - 1" />
     </div>
 
   </div>
