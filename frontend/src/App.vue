@@ -2,12 +2,11 @@
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from '@/components/HelloWorld.vue'
 import GetGame from '@/components/GetGame.vue'
-import PlayMode from '@/views/PlayMode.vue'
+// import PlayMode from '@/views/PlayMode.vue'
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
@@ -15,19 +14,25 @@ import PlayMode from '@/views/PlayMode.vue'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/games">Play </RouterLink>
       </nav>
+
+      <About />
+
+      <RouterView />
+      <RouterLink />
     </div>
   </header>
 
   <GetGame />
-  <PlayMode />
+  <About />
+
 
   <!--  Maybe a link instead of a button to start play mode-->
 <!-- <button @click="play"> Play  </button>  -->
 
 
 
-  <RouterView />
 </template>
 
 <style>

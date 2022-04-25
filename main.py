@@ -121,19 +121,12 @@ def create_new_game():
     new_game = Games(player_one_id=current_player_id, secret_code=secret_code, played_on=datetime.now())
     db.session.add(new_game)
     db.session.commit()
-    print(secret_code)
+
+    player_one_guess = '2345'
     # game = Games.query.filter_by(player_one_id=current_player_id).first()
-
-
-    player_guess = [2, 3, 4, 5]
     return render_template('index.html')
 
 
-# '[\'💒\', \'🎊\', \'🎊\', \'👰️\']'
-# 3
-# '3'
-
-# /recipe?game_id=1&guesses=xxxx
 # This route retrieves information about a specific game (game_id, player_one_id, player_two_id (default: computer),
 # result, secret_code, num_attempts, max_attempts, played on_
 # and list_of_guesses for a specific game_id from guesses table
