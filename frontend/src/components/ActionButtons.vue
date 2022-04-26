@@ -2,12 +2,20 @@
   export default {
     data() {
       return {
+        info: []
 
       }
     },
     methods: {
-      select() {
-        // go to the respective spot
+      select(event) {
+        this.$store.addEmojiGuess(event.target.value)
+        // console.log(guess)
+      },
+      undo() {
+        this.$store.deleteLastEmoji()
+      },
+      submit() {
+        this.$store.submitGuess()
       }
     }
   }
@@ -17,20 +25,21 @@
   <div>
     <div class="wrap">
       <h1> ICON CHOICES </h1>
-      <button :click="select"> 🤵‍♂️️‍</button>
-      <button :click="select"> 👰‍♀️</button>
-      <button :click="select"> 💒</button>
-      <button :click="select"> 🔔</button>
-      <button :click="select"> 💐</button>
-      <button :click="select"> ❤️</button>
-      <button :click="select"> 🫶</button>
-      <button :click="select"> 🎊</button>
+      <button @click="select" value="🤵‍♂"> 🤵‍♂️️‍</button>
+      <button @click="select" value="👰‍♀"> 👰‍♀️</button>
+      <button @click="select" value="💒"> 💒</button>
+      <button @click="select" value="🔔"> 🔔</button>
+      <button @click="select" value="💐"> 💐</button>
+      <button @click="select" value="❤️"> ❤️</button>
+      <button @click="select" value="🫶"> 🫶</button>
+      <button @click="select" value="🎊"> 🎊</button>
     </div>
 
-    <button> Submit </button>
+    <button @click="submit"> Submit </button>
+    <div>  <button @click="undo"> Undo </button></div>
 
   </div>
-
+{{ this.info }}
 </template>
 
 <style>
