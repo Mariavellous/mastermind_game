@@ -127,6 +127,7 @@ def create_new_game():
     return render_template('index.html')
 
 
+
 # This route retrieves information about a specific game (game_id, player_one_id, player_two_id (default: computer),
 # result, secret_code, num_attempts, max_attempts, played on_
 # and list_of_guesses for a specific game_id from guesses table
@@ -139,6 +140,11 @@ def get_game_id(game_id):
     data = {"game": game_json, "guesses": list_of_guesses_json}
     return jsonify(data)
 
+@app.route('/games/<int:game_id>/guesses', methods=['POST'])
+def create_new_guess(game_id):
+
+    print(request.json)
+    return "Hello"
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5037)

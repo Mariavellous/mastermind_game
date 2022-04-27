@@ -16,7 +16,7 @@
       },
       submit() {
         this.$store.submitGuess()
-      }
+      },
     }
   }
 </script>

@@ -10,6 +10,8 @@ export const useGameStore = defineStore({
     counter: 0,
     max_attempt_allowed: 10,
     max_guesses_allowed: 4,
+    my_data: null,
+    gameId: 1,
 
   }),
 
@@ -24,9 +26,19 @@ export const useGameStore = defineStore({
     deleteLastEmoji() {
       this.currentGuess.pop()
     },
-    submitGuess() {
-      console.log(this.currentGuess)
-      return this.currentGuess
+    async submitGuess() {
+      debugger
+      const response = await fetch("http://127.0.0.1:5037/games/1/guesses",{
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(this.currentGuess)
+        })
+        await response.raise_for_status()
+        const json = await response.json();
+        this.my_data = json.guesses
+      return this.my_data
     },
 
     myCoolAdder() {
