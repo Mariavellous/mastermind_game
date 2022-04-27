@@ -129,8 +129,14 @@ def create_new_game():
 
 @app.route('/games/<int:game_id>/guesses', methods=['POST'])
 def create_new_guess(game_id):
+    current_player_id = 1
     # retrieve player's guess
     new_guess = request.json
+    # convert new_guess data into a string to store in database
+    player_guess = ""
+    for item in new_guess:
+        player_guess = player_guess + item
+
     # retrieve secret_code of this game
     game = Games.query.filter_by(id=game_id).first()
     # converts secret code from game table into list/array
@@ -139,6 +145,15 @@ def create_new_guess(game_id):
     hint = computer.compare_current_guess(secret_code, new_guess)
     print(hint)
 
+    # adding a new entry to the guess table
+    guess = Guesses(player_id=current_player_id, game_id=game_id, player_guess=player_guess, hint=hint)
+    db.session.add(guess)
+
+    # update result column in games table
+    result = Games()
+    db.session.commit()
+
+    # update a
     return "Hello"
 
 
@@ -153,7 +168,6 @@ def get_game_id(game_id):
     list_of_guesses_json = serialize(guesses)
     data = {"game": game_json, "guesses": list_of_guesses_json}
     return jsonify(data)
-# update the player_guess column on the guess table
 
 
 if __name__ == "__main__":
