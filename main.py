@@ -36,34 +36,42 @@ db = SQLAlchemy(app)
 # mastermind database, has three tables "players", "guesses" and "games" set up
 Base = automap_base(db.Model)
 
+
+class Games(Base, db.Model):
+    # extracts information from database row (sqlalchemy orm)
+    def serialize(self):
+        return {
+            'id': self.id,
+            'player_one_id': self.player_one_id,
+            'player_two_id': self.player_two_id,
+            'result': self.result,
+            'secret_code': self.secret_code,
+            'number_of_attempts': self.number_of_attempts,
+            'max_attempts_allowed': self.max_attempts_allowed,
+            'played_on': self.played_on,
+        }
+
+class Guesses(Base, db.Model):
+    # extracts information from database row (sqlalchemy orm)
+    def serialize(self):
+        return {
+            'id': self.id,
+            'game_id': self.game_id,
+            'player_id': self.player_id,
+            'player_guess': self.player_guess,
+            'hint': self.hint,
+        }
+
+
 # reflect the tables
 Base.prepare(db.engine, reflect=True)
 
 # mapped classes are now created with names by default
 # matching that of the table name
 Players = Base.classes.players
-Guesses = Base.classes.guesses
-Games = Base.classes.games
 
 
-# turns the sqlalchemy orm object into json format
-def serialize(obj):
-    if type(obj) is list:
-        return serialize_list(obj)
-    data = obj.__dict__
-    keys_to_remove = ['_sa_instance_state', '__len__']
-    for k in keys_to_remove:
-        data.pop(k, None)
-    return data
 
-
-# turn the list of sqlalchemy.orm objects into json format
-def serialize_list(obj):
-    data = []
-    for item in obj:
-        new_item = serialize(item)
-        data.append(new_item)
-    return data
 
 
 THEME_MAP = {
@@ -126,7 +134,8 @@ def create_new_guess(game_id):
     game.played_on = datetime.now()
     db.session.commit()
 
-    return "Hello"
+    return get_game_id(game_id)
+
 
 
 # This route retrieves information about a specific game (game_id, player_one_id, player_two_id (default: computer),
@@ -136,9 +145,12 @@ def create_new_guess(game_id):
 def get_game_id(game_id):
     game = Games.query.get(game_id)
     guesses = Guesses.query.filter_by(game_id=game_id).all()
-    game_json = serialize(game)
-    list_of_guesses_json = serialize(guesses)
+    game_json = game.serialize()
+    # Loops through the guesses and extracts data from guess sqlachemy object
+    # loops through each guess in guesses
+    list_of_guesses_json = list(map(lambda guess: guess.serialize(), guesses))
     data = {"game": game_json, "guesses": list_of_guesses_json}
+    # returns data in json format
     return jsonify(data)
 
 
