@@ -66,10 +66,6 @@ def serialize_list(obj):
     return data
 
 
-# db.session.add(p)
-# db.session.commit()
-
-
 THEME_MAP = {
     "0": "🤵", "1": "👰️", "2": "💒", "3": "🔔",
     "4": "💐", "5": "❤️", "6": "🫶", "7": "🎊"
@@ -77,31 +73,6 @@ THEME_MAP = {
 
 computer = Computer()
 
-
-# Retrieves randomize integers using random.org API and converts it into emojis.
-# Current Theme: Wedding Emojis
-# def get_secret_code():
-#     RANDOM_INTEGER_URL_API = "https://www.random.org/integers/"
-#     params = {
-#         "num": 4,
-#         "min": 0,
-#         "max": 7,
-#         "col": 1,
-#         "base": 10,
-#         "format": "plain",
-#         "rnd": "new",
-#     }
-#     response = requests.get(f"{RANDOM_INTEGER_URL_API}",
-#                             params=params)
-#     response.raise_for_status()
-#     random_integers = response.text.replace("\n", "")
-#
-#     # Convert random_integers to emoji
-#     random_emojis = []
-#     for item in random_integers:
-#         random_emojis.append(THEME_MAP[item])
-#
-#     return random_emojis
 
 
 @app.route('/')
@@ -143,17 +114,18 @@ def create_new_guess(game_id):
     secret_code = list(game.secret_code)
     # compare current_guess to secret code and return hint
     hint = computer.compare_current_guess(secret_code, new_guess)
-    print(hint)
 
     # adding a new entry to the guess table
     guess = Guesses(player_id=current_player_id, game_id=game_id, player_guess=player_guess, hint=hint)
     db.session.add(guess)
 
     # update result column in games table
-    result = Games()
+    game.player_one_id = current_player_id
+    game.result = (hint == 'YYYY')
+    game.number_of_attempts += 1
+    game.played_on = datetime.now()
     db.session.commit()
 
-    # update a
     return "Hello"
 
 

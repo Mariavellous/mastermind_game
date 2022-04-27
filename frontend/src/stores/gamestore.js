@@ -27,7 +27,6 @@ export const useGameStore = defineStore({
       this.currentGuess.pop()
     },
     async submitGuess() {
-      debugger
       const response = await fetch("http://127.0.0.1:5037/games/1/guesses",{
           method: 'POST',
           headers: {
