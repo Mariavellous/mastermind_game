@@ -127,6 +127,20 @@ def create_new_game():
     return render_template('index.html')
 
 
+@app.route('/games/<int:game_id>/guesses', methods=['POST'])
+def create_new_guess(game_id):
+    # retrieve player's guess
+    new_guess = request.json
+    # retrieve secret_code of this game
+    game = Games.query.filter_by(id=game_id).first()
+    # converts secret code from game table into list/array
+    secret_code = list(game.secret_code)
+    # compare current_guess to secret code and return hint
+    hint = computer.compare_current_guess(secret_code, new_guess)
+    print(hint)
+
+    return "Hello"
+
 
 # This route retrieves information about a specific game (game_id, player_one_id, player_two_id (default: computer),
 # result, secret_code, num_attempts, max_attempts, played on_
@@ -139,12 +153,8 @@ def get_game_id(game_id):
     list_of_guesses_json = serialize(guesses)
     data = {"game": game_json, "guesses": list_of_guesses_json}
     return jsonify(data)
+# update the player_guess column on the guess table
 
-@app.route('/games/<int:game_id>/guesses', methods=['POST'])
-def create_new_guess(game_id):
-
-    print(request.json)
-    return "Hello"
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5037)
