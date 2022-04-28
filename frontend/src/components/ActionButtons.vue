@@ -17,6 +17,14 @@
       submit() {
         this.$store.submitGuess()
       },
+    },
+    computed:{
+      gameCompleted() {
+        if (this.$store.result !== null){
+          return true
+        }
+        return false
+      }
     }
   }
 </script>
@@ -25,18 +33,18 @@
   <div>
     <div class="wrap">
       <h1> ICON CHOICES </h1>
-      <button @click="select" value="0">🤵‍♂</button>
-      <button @click="select" value="1">👰‍♀️‍️</button>
-      <button @click="select" value="2">💒</button>
-      <button @click="select" value="3">🔔</button>
-      <button @click="select" value="4">💐</button>
-      <button @click="select" value="5">❤️</button>
-      <button @click="select" value="6">🫶</button>
-      <button @click="select" value="7">🎊</button>
+      <button @click="select" :disabled="gameCompleted" value="0">🤵‍♂</button>
+      <button @click="select" :disabled="gameCompleted" value="1">👰‍♀️‍️</button>
+      <button @click="select" :disabled="gameCompleted" value="2">💒</button>
+      <button @click="select" :disabled="gameCompleted" value="3">🔔</button>
+      <button @click="select" :disabled="gameCompleted" value="4">💐</button>
+      <button @click="select" :disabled="gameCompleted" value="5">❤️</button>
+      <button @click="select" :disabled="gameCompleted" value="6">🫶</button>
+      <button @click="select" :disabled="gameCompleted" value="7">🎊</button>
     </div>
 
-    <button @click="submit"> Submit </button>
-    <div>  <button @click="undo"> Undo </button></div>
+    <button @click="submit" :disabled="gameCompleted"> Submit </button>
+    <div>  <button @click="undo" :disabled="gameCompleted"> Undo </button></div>
 
   </div>
 {{ this.info }}

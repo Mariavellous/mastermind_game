@@ -19,7 +19,7 @@ CREATE TABLE games(
     CONSTRAINT player_one_id_fk FOREIGN KEY (player_one_id) REFERENCES players (id),
     player_two_id INTEGER,
     CONSTRAINT player_two_id_fk FOREIGN KEY (player_two_id) REFERENCES players (id),
-    result BOOLEAN DEFAULT FALSE,
+    result BOOLEAN DEFAULT NULL,
     secret_code VARCHAR(30) NOT NULL,
     number_of_attempts INTEGER DEFAULT 0,
     max_attempts_allowed INTEGER DEFAULT 10 NOT NULL,

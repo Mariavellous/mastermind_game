@@ -120,13 +120,18 @@ def create_new_guess(game_id):
 
     # update result column in games table
     game.player_one_id = current_player_id
-    game.result = (hint == 'YYYY')
     game.number_of_attempts += 1
+    # Game ends if game.result is true or false. Game continues if game.result = None
+    if hint == "YYYY":
+        game.result = True
+    elif game.number_of_attempts == game.max_attempts_allowed:
+        game.result = False
+    else:
+        game.result = None
     game.played_on = datetime.now()
     db.session.commit()
 
     return get_game_id(game_id)
-
 
 
 # This route retrieves information about a specific game (game_id, player_one_id, player_two_id (default: computer),

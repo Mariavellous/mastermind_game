@@ -41,5 +41,4 @@ class Computer:
       if new_guess[i] != None and new_guess[i] in secret_code:
           hint = hint + "M"
           secret_code.remove(new_guess[i])
-
     return hint

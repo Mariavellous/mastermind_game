@@ -7,15 +7,6 @@
     mounted() {
       console.log(GuessRow)
     },
-    data() {
-      return {
-        max_attempt_allowed: 10,
-      }
-    },
-    computed: {
-      isDone() {
-      }
-      },
   }
 </script>
 
@@ -25,7 +16,7 @@
     <h1> Player Guess </h1>
 <!--    <p>{{$store.counter}}</p>-->
 <!--    Index looping starts at 1 (convert to start at 0)-->
-    <div v-for="index in max_attempt_allowed" :key="index" class="playerguess">
+    <div v-for="index in this.$store.max_attempts_allowed" :key="index" class="playerguess">
       <GuessRow :index="index - 1" />
     </div>
 

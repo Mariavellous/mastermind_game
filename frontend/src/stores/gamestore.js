@@ -11,7 +11,7 @@ export const useGameStore = defineStore({
     max_guesses_allowed: 4,
     gameId: 1,
     guesses: [],
-    result: false,
+    result: null,
     played_on: null,
     themes: {
       wedding: {
