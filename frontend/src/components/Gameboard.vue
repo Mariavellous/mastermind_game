@@ -11,7 +11,11 @@
       return {
         max_attempt_allowed: 10,
       }
-    }
+    },
+    computed: {
+      isDone() {
+      }
+      },
   }
 </script>
 
@@ -22,7 +26,7 @@
 <!--    <p>{{$store.counter}}</p>-->
 <!--    Index looping starts at 1 (convert to start at 0)-->
     <div v-for="index in max_attempt_allowed" :key="index" class="playerguess">
-      <GuessRow :row="index - 1" />
+      <GuessRow :index="index - 1" />
     </div>
 
   </div>

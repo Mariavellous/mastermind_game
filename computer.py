@@ -1,9 +1,5 @@
 # make API requests
 import requests
-THEME_MAP = {
-    "0": "🤵", "1": "👰️", "2": "💒", "3": "🔔",
-    "4": "💐", "5": "❤️", "6": "🫶", "7": "🎊"
-    }
 
 class Computer:
   def __init__(self):
@@ -26,13 +22,7 @@ class Computer:
                               params=params)
       response.raise_for_status()
       random_integers = response.text.replace("\n", "")
-
-        # Convert random_integers to emoji
-      random_emojis = []
-      for item in random_integers:
-          random_emojis.append(THEME_MAP[item])
-
-      return random_emojis
+      return random_integers
 
 
 # compares if current_guess == secret code

@@ -70,15 +70,6 @@ Base.prepare(db.engine, reflect=True)
 # matching that of the table name
 Players = Base.classes.players
 
-
-
-
-
-THEME_MAP = {
-    "0": "🤵", "1": "👰️", "2": "💒", "3": "🔔",
-    "4": "💐", "5": "❤️", "6": "🫶", "7": "🎊"
-    }
-
 computer = Computer()
 
 

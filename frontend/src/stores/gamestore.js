@@ -1,20 +1,25 @@
 import { defineStore } from 'pinia'
 
+
 export const useGameStore = defineStore({
   id: 'game',
-
 
   state: () => ({
     currentGuess: [],
     activeRow: 0,
-    counter: 0,
     max_attempt_allowed: 10,
     max_guesses_allowed: 4,
-    my_data: null,
     gameId: 1,
+    guesses: [],
 
+    themes: {
+      wedding: {
+          "0": "🤵‍♂️", "1": "👰‍♀️", "2": "💒", "3": "🔔",
+          "4": "💐", "5": "❤️", "6": "🫶", "7": "🎊",
+          "empty-emoji": "__", "empty-hint": "🔘"
+        }
+    }
   }),
-
 
   actions: {
     addEmojiGuess(emoji) {
@@ -27,18 +32,32 @@ export const useGameStore = defineStore({
       this.currentGuess.pop()
     },
     async submitGuess() {
-      const response = await fetch("http://127.0.0.1:5037/games/1/guesses",{
-          method: 'POST',
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(this.currentGuess)
-        })
-        await response.raise_for_status()
-        const json = await response.json();
-        this.my_data = json.guesses
-      return this.my_data
+      const response = await fetch("http://127.0.0.1:5037/games/1/guesses", {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(this.currentGuess)
+      })
+      const game = await response.json();
+      // this.my_data = json.guesses
+      // extract the list of guesses entry from guess table database
+      this.guesses = game.guesses
+      // active row becomes row[last index] + 1
+      this.activeRow = game.guesses.length
+      // erases the previous guess and starts over (empty list)
+      this.currentGuess = []
     },
+    // // makes a GET https request and returns the specific game_id#
+    // async play() {
+    //   const response = await fetch ("http://127.0.0.1:5037/games/1", {
+    //     method: 'GET',
+    //     headers: {
+    //       "Content-Type": "application/json"
+    //     }
+    //   })
+    //   const game = await response.json();
+    // },
 
     myCoolAdder() {
       this.activeRow += 1
