@@ -12,7 +12,7 @@
 
 
 <template>
-  <div>
+  <div class="gameboard">
     <h1> Player Guess </h1>
 <!--    <p>{{$store.counter}}</p>-->
 <!--    Index looping starts at 1 (convert to start at 0)-->
@@ -24,7 +24,13 @@
 
 </template>
 
-<style>
+<style scoped>
+  .gameboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   button {
     font-size: 5rem
   }

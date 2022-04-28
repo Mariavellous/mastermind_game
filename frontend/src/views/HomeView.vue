@@ -1,9 +1,12 @@
-<script setup>
-import TheWelcome from '@/components/TheWelcome.vue'
+<script>
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    Mastermind Game
+    <nav>
+      <RouterLink to="/games">Play</RouterLink>
+      <RouterLink to="/register">Register</RouterLink>
+    </nav>
   </main>
 </template>

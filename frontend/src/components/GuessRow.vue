@@ -73,8 +73,8 @@
 
 <template>
 <!--Displays player_guess and hint together as one row. Identifies self if active -->
-    <div :class="{'active-row': isActive, test: true, }">
-      <p> {{this.rowLabel}} </p>
+    <div :class="{'active-row': isActive, 'centered-flexbox': true, }">
+      <h1> {{this.rowLabel}} </h1>
       <button v-for="(emoji,index) in guesses" :key="index" class="line">{{THEME_MAP[emoji]}}</button>
       <button v-for="(hint,index) in hints" :key="index" class="hint"> {{hint}} </button>
 
@@ -85,4 +85,5 @@
 .hint {
   font-size: 1rem;
 }
+
 </style>

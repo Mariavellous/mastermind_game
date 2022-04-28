@@ -52,7 +52,7 @@
 
 <style>
 button {
-  font-size: 5rem
+  font-size: 2.7rem;
 }
 </style>
 
