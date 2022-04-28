@@ -18,7 +18,7 @@ export const useGameStore = defineStore({
           "0": "🤵‍♂️", "1": "👰‍♀️", "2": "💒", "3": "🔔",
           "4": "💐", "5": "❤️", "6": "🫶", "7": "🎊",
           "empty-emoji": "__", "empty-hint": "🔘"
-        }
+        },
     }
   }),
 
@@ -70,6 +70,24 @@ export const useGameStore = defineStore({
       this.activeRow = gameData.guesses.length
       this.currentGuess = []
     },
+
+    async register(newPlayer) {
+      const response = await fetch ("http://127.0.0.1:5037/players", {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newPlayer)
+      })
+      // lead to display of Play or See list of games
+    },
+    //
+    // addPlayer(answer) {
+    //   if (this.currentGuess.length < this.max_guesses_allowed){
+    //     this.currentGuess.push(emoji)
+    //     return this.currentGuess
+    //   }
+    // },
 
     myCoolAdder() {
       this.activeRow += 1

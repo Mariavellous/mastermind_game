@@ -150,5 +150,11 @@ def get_game_id(game_id):
     return jsonify(data)
 
 
+@app.route('/players', methods=['POST'])
+def register_player():
+    new_player = request.json()
+    print(new_player)
+    return "Successful"
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5037)

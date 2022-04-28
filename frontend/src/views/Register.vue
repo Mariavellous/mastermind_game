@@ -1,56 +1,102 @@
-<script setup>
-defineProps({
-  msg: {
-    type: String,
-    required: true
+<script>
+  export default {
+    data() {
+      return {
+        newPlayer: {
+          first_name: "",
+          last_name: "",
+          email_address: "",
+          password: "",
+        }
+      }
+    },
+    methods: {
+      submit() {
+        this.$store.register(this.newPlayer)
+      }
+    }
   }
-})
+
+
 </script>
 
 <template>
-  <body>
-  <div class="container">
-    <div class="row">
-        <p> Are you a foodie? Join us here. </p>
-            <form action="{{ url_for('register') }}" method="post" name="sentMessage" id="contactForm" novalidate>
-              <label>Name</label>
-              <input type="text" class="form-control" placeholder="Name" name="name" id="name" required data-validation-required-message="Please enter your name.">
-              <p class="help-block text-danger"></p>
-              <label>Email Address</label>
-              <input type="email" class="form-control" placeholder="Email Address" name="email" id="email" required data-validation-required-message="Please enter your email address.">
-              <label>Password</label>
-              <input type="tel" class="form-control" placeholder="Password" name="password" id="password" required data-validation-required-message="Please enter your password.">
-              <p class="help-block text-danger"></p>
-          <br>
-          <button type="submit" class="btn btn-primary" id="sendMessageButton">Submit</button>
-          </form>
-      </div>
-    </div>
-  </body>
+  <div class=input-wrapper>
+    <form>
+    <h1> Ready to be a code master? Join here! </h1>
+    <label>First Name</label>
+    <input type="text" class=register-form v-model="newPlayer.first_name" placeholder="First Name" required
+           data-validation-required-message="Please enter your first name.">
+    <label>Last Name</label>
+    <input type="text" class=register-form v-model="newPlayer.last_name" placeholder="Last Name" required
+           data-validation-required-message="Please enter your last name.">
+    <label>Email Address</label>
+
+    <input type="email" class="register-form" placeholder="Email Address" v-model="newPlayer.email_address" required
+           data-validation-required-message="Please enter your email address.">
+i
+    <label>Password</label>
+    <input type="password" class="register-form" placeholder="Password" v-model="newPlayer.password" required
+           data-validation-required-message="Please enter your password.">
+    <br>
+    <button type="submit" class="send-button" @click="submit">Register</button>
+    </form>
+  </div>
 
 </template>
 
 <style scoped>
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  top: -10px;
-}
-
-h3 {
-  font-size: 1.2rem;
-}
-
-.greetings h1,
-.greetings h3 {
-  text-align: center;
-}
-
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
+  h1 {
+    font-weight: bold;
+    font-size: 2.75rem;
+    top: -10px;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
   }
-}
+
+  label {
+    font-size: 1.25rem;
+  }
+
+  input {
+    font-family: sans-serif;
+    font-size: 20px;
+    width: 50%;
+    background: none;
+    color: black;
+    border: 1px solid royalblue;
+    border-radius: 5px;
+    padding: 10px
+
+  }
+
+  .input-wrapper {
+    margin: 2rem;
+    font-size: 1rem;
+  }
+
+  .send-button {
+    color: white;
+    background-color: royalblue;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 40px;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .send-button:disabled {
+    opacity: 0.5;
+  }
+
+  .register-form {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
 
 </style>

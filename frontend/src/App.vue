@@ -31,7 +31,7 @@
     <div class="content centered-flexbox">
       <router-view/>
     </div>
-    <div class="footer centered-flexbox"> End</div>
+    <div class="footer centered-flexbox"> @Made with Love 👰‍♀️ </div>
   </main>
 </template>
 
@@ -68,7 +68,7 @@
   .header {
     width: 100%;
     height: 50px;
-    background-color: darkgrey;
+    background-color: #f2f2f2;
   }
 
   .header > .wrapper {
@@ -94,7 +94,7 @@
   .footer {
     height: 50px;
     width: 100%;
-    background-color: darkgrey;
+    background-color: #f2f2f2;
   }
 
 </style>
