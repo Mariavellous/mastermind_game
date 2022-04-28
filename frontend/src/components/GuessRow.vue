@@ -75,8 +75,8 @@
 <!--Displays player_guess and hint together as one row. Identifies self if active -->
     <div :class="{'active-row': isActive, test: true, }">
       <p> {{this.rowLabel}} </p>
-      <button v-for="emoji in guesses" :key="emoji" class="line">{{THEME_MAP[emoji]}}</button>
-      <button v-for="hint in hints" :key="hint" class="hint"> {{hint}} </button>
+      <button v-for="(emoji,index) in guesses" :key="index" class="line">{{THEME_MAP[emoji]}}</button>
+      <button v-for="(hint,index) in hints" :key="index" class="hint"> {{hint}} </button>
 
     </div>
 </template>

@@ -1,14 +1,26 @@
-<script setup>
+<script >
   import ActionButtons from '@/components/ActionButtons.vue'
-  import PlayerGuess from '@/components/Gameboard.vue'
+  import Gameboard from '@/components/Gameboard.vue'
   // import Hint from '@/components/GuessRow.vue'
+  export default {
+    components: {
+      "ActionButtons": ActionButtons,
+      "Gameboard": Gameboard
+    },
+    mounted() {
+      this.$store.play()
 
+  },
+  }
 </script>
+
+
 
 <template>
 <!--  {{this.$store.play}}-->
   <ActionButtons/>
-  <PlayerGuess/>
+  <Gameboard/>
+
 <!--  <Hint/> -->
 
 

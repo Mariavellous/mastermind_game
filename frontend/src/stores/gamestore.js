@@ -7,11 +7,12 @@ export const useGameStore = defineStore({
   state: () => ({
     currentGuess: [],
     activeRow: 0,
-    max_attempt_allowed: 10,
+    max_attempts_allowed: 0,
     max_guesses_allowed: 4,
     gameId: 1,
     guesses: [],
-
+    result: false,
+    played_on: null,
     themes: {
       wedding: {
           "0": "🤵‍♂️", "1": "👰‍♀️", "2": "💒", "3": "🔔",
@@ -39,25 +40,36 @@ export const useGameStore = defineStore({
         },
         body: JSON.stringify(this.currentGuess)
       })
-      const game = await response.json();
+      const gameData = await response.json();
       // this.my_data = json.guesses
       // extract the list of guesses entry from guess table database
-      this.guesses = game.guesses
+      //this.guesses = game.guesses
       // active row becomes row[last index] + 1
-      this.activeRow = game.guesses.length
+      //this.activeRow = game.guesses.length
       // erases the previous guess and starts over (empty list)
+      //this.currentGuess = []
+      this.updateGameboard(gameData)
+    },
+    // makes a GET https request and returns the specific game_id#
+    async play() {
+      const response = await fetch ("http://127.0.0.1:5037/games/1", {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      const gameData = await response.json();
+      this.updateGameboard(gameData)
+    },
+
+    updateGameboard(gameData) {
+      this.guesses = gameData.guesses
+      this.result = gameData.game.result
+      this.max_attempts_allowed = gameData.game.max_attempts_allowed
+      this.played_on = gameData.game.played_on
+      this.activeRow = gameData.guesses.length
       this.currentGuess = []
     },
-    // // makes a GET https request and returns the specific game_id#
-    // async play() {
-    //   const response = await fetch ("http://127.0.0.1:5037/games/1", {
-    //     method: 'GET',
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     }
-    //   })
-    //   const game = await response.json();
-    // },
 
     myCoolAdder() {
       this.activeRow += 1
