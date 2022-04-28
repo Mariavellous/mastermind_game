@@ -72,6 +72,7 @@ export const useGameStore = defineStore({
     },
 
     async register(newPlayer) {
+      debugger
       const response = await fetch ("http://127.0.0.1:5037/players", {
         method: 'POST',
         headers: {
@@ -79,6 +80,10 @@ export const useGameStore = defineStore({
         },
         body: JSON.stringify(newPlayer)
       })
+      const currentPlayer = await response.json();
+      return currentPlayer
+
+
       // lead to display of Play or See list of games
     },
     //

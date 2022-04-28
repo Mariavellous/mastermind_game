@@ -8,6 +8,8 @@ from flask_cors import CORS
 import psycopg2
 from computer import Computer
 from datetime import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 
 
@@ -51,6 +53,7 @@ class Games(Base, db.Model):
             'played_on': self.played_on,
         }
 
+
 class Guesses(Base, db.Model):
     # extracts information from database row (sqlalchemy orm)
     def serialize(self):
@@ -63,15 +66,24 @@ class Guesses(Base, db.Model):
         }
 
 
+class Players(Base, db.Model):
+    # extracts information from database row(sqlachemy orm)
+    def serialize(self):
+        return {
+            'id': self.id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email_address': self.email_address,
+        }
+
+
 # reflect the tables
 Base.prepare(db.engine, reflect=True)
 
-# mapped classes are now created with names by default
-# matching that of the table name
-Players = Base.classes.players
+
+
 
 computer = Computer()
-
 
 
 @app.route('/')
@@ -152,9 +164,15 @@ def get_game_id(game_id):
 
 @app.route('/players', methods=['POST'])
 def register_player():
-    new_player = request.json()
-    print(new_player)
-    return "Successful"
+    # retrieves data from user_input
+    new_player = request.json
+    password = generate_password_hash(password=new_player['password'], method='pbkdf2:sha256', salt_length=8)
+    player = Players(first_name=new_player['first_name'], last_name=new_player['last_name'], email_address=new_player['email_address'],
+                     password=password)
+    db.session.add(player)
+    db.session.commit()
+    # return player's data except password back to the front end
+    return player.serialize()
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5037)

@@ -37,7 +37,7 @@ CREATE TABLE guesses(
 );
 
 
-
+-- Create initial players
 INSERT INTO players(first_name, last_name, email_address, password)
 VALUES('Melanie', 'Alcaide', 'mariamelanie@gmail.com', 'melanie');
 

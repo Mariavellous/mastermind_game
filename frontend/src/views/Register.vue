@@ -12,6 +12,7 @@
     },
     methods: {
       submit() {
+        debugger
         this.$store.register(this.newPlayer)
       }
     }
@@ -23,23 +24,23 @@
 <template>
   <div class=input-wrapper>
     <form>
-    <h1> Ready to be a code master? Join here! </h1>
-    <label>First Name</label>
-    <input type="text" class=register-form v-model="newPlayer.first_name" placeholder="First Name" required
-           data-validation-required-message="Please enter your first name.">
-    <label>Last Name</label>
-    <input type="text" class=register-form v-model="newPlayer.last_name" placeholder="Last Name" required
-           data-validation-required-message="Please enter your last name.">
-    <label>Email Address</label>
+      <h1> Ready to be a code master? Join here! </h1>
+      <label>First Name</label>
+      <input type="text" class=register-form v-model="newPlayer.first_name" placeholder="First Name" required
+             data-validation-required-message="Please enter your first name.">
+      <label>Last Name</label>
+      <input type="text" class=register-form v-model="newPlayer.last_name" placeholder="Last Name" required
+             data-validation-required-message="Please enter your last name.">
+      <label>Email Address</label>
 
-    <input type="email" class="register-form" placeholder="Email Address" v-model="newPlayer.email_address" required
-           data-validation-required-message="Please enter your email address.">
-i
-    <label>Password</label>
-    <input type="password" class="register-form" placeholder="Password" v-model="newPlayer.password" required
-           data-validation-required-message="Please enter your password.">
-    <br>
-    <button type="submit" class="send-button" @click="submit">Register</button>
+      <input type="email" class="register-form" placeholder="Email Address" v-model="newPlayer.email_address" required
+             data-validation-required-message="Please enter your email address.">
+
+      <label>Password</label>
+      <input type="password" class="register-form" placeholder="Password" v-model="newPlayer.password" required
+             data-validation-required-message="Please enter your password.">
+      <br>
+      <button type="submit" class="send-button" @click="submit">Register</button>
     </form>
   </div>
 
