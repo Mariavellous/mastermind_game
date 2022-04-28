@@ -83,7 +83,8 @@ def home():
 def create_new_game():
     # Special Step: fetch secret code
     # secret_code = get_secret_code()
-    secret_code_list = computer.get_secret_code()
+    length_of_secret_code = 4
+    secret_code_list = computer.get_secret_code(length_of_secret_code)
     # Special Step: Update Guess table
     current_player_id = 1
     # turns the list into str for easy storage into database
@@ -91,8 +92,6 @@ def create_new_game():
     new_game = Games(player_one_id=current_player_id, secret_code=secret_code, played_on=datetime.now())
     db.session.add(new_game)
     db.session.commit()
-
-    player_one_guess = '2345'
     # game = Games.query.filter_by(player_one_id=current_player_id).first()
     return render_template('index.html')
 
@@ -100,22 +99,23 @@ def create_new_game():
 @app.route('/games/<int:game_id>/guesses', methods=['POST'])
 def create_new_guess(game_id):
     current_player_id = 1
-    # retrieve player's guess
-    new_guess = request.json
-    # convert new_guess data into a string to store in database
-    player_guess = ""
-    for item in new_guess:
-        player_guess = player_guess + item
 
     # retrieve secret_code of this game
     game = Games.query.filter_by(id=game_id).first()
+    # retrieve player's guess
+    new_guess = request.json
+    string_new_guess = "".join(request.json)
+
+    if len(new_guess) != len(game.secret_code):
+        return f"Guess number needs to be {len(game.secret_code)}", 400
+
     # converts secret code from game table into list/array
     secret_code = list(game.secret_code)
     # compare current_guess to secret code and return hint
     hint = computer.compare_current_guess(secret_code, new_guess)
 
     # adding a new entry to the guess table
-    guess = Guesses(player_id=current_player_id, game_id=game_id, player_guess=player_guess, hint=hint)
+    guess = Guesses(player_id=current_player_id, game_id=game_id, player_guess=string_new_guess, hint=hint)
     db.session.add(guess)
 
     # update result column in games table

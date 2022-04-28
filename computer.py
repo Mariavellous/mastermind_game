@@ -7,10 +7,10 @@ class Computer:
 
     # Retrieves randomize integers using random.org API and converts it into emojis.
     # Current Theme: Wedding Emojis
-  def get_secret_code(self):
+  def get_secret_code(self, num):
       RANDOM_INTEGER_URL_API = "https://www.random.org/integers/"
       params = {
-          "num": 4,
+          "num": num,
           "min": 0,
           "max": 7,
           "col": 1,
