@@ -91,11 +91,25 @@ export const useGameStore = defineStore({
       // lead to display of Play or See list of games
     },
 
+    async login(player) {
+      const response = await fetch("http://127.0.0.1:5037/login", {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(player)
+      })
+      const playerData = await response.json();
+      // successful login player becomes currentPlayer (ready to play)
+      this.updateCurrentPlayer(playerData)
+      // lead to display Play game or see list of games
+    },
+
     // retrieves player information and update currentPlayer
-    updateCurrentPlayer(data) {
-      this.currentPlayer.first_name = data.first_name
-      this.currentPlayer.last_name = data.last_name
-      this.currentPlayer.email_address =data.email_address
+    updateCurrentPlayer(player) {
+      this.currentPlayer.first_name = player.first_name
+      this.currentPlayer.last_name = player.last_name
+      this.currentPlayer.email_address =player.email_address
     },
 
     myCoolAdder() {

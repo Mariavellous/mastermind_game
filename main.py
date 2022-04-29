@@ -175,5 +175,10 @@ def register_player():
     return player.serialize()
 
 
+@app.route('/login', methods=['POST'])
+def login():
+    # retrieves data from user input
+    player = request.json
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5037)

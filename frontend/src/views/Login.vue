@@ -2,9 +2,7 @@
   export default {
     data() {
       return {
-        newPlayer: {
-          first_name: "",
-          last_name: "",
+        player: {
           email_address: "",
           password: "",
         }
@@ -12,7 +10,7 @@
     },
     methods: {
       submit() {
-        this.$store.register(this.newPlayer)
+        this.$store.login(this.player)
       }
     }
   }
@@ -24,10 +22,10 @@
   <div class=input-wrapper>
       <h1> Welcome Back! </h1>
       <label>Email Address</label>
-      <input type="email" class="register-form" placeholder="Email Address" v-model="newPlayer.email_address" required
+      <input type="email" class="register-form" placeholder="Email Address" v-model="player.email_address" required
              data-validation-required-message="Please enter your email address.">
       <label>Password</label>
-      <input type="password" class="register-form" placeholder="Password" v-model="newPlayer.password" required
+      <input type="password" class="register-form" placeholder="Password" v-model="player.password" required
              data-validation-required-message="Please enter your password.">
       <br>
       <button type="submit" class="send-button" @click="submit">Login</button>
