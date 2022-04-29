@@ -19,7 +19,13 @@ export const useGameStore = defineStore({
           "4": "💐", "5": "❤️", "6": "🫶", "7": "🎊",
           "empty-emoji": "__", "empty-hint": "🔘"
         },
-    }
+    },
+    currentPlayer: {
+      first_name: null,
+      last_name: null,
+      email_address: null,
+    },
+
   }),
 
   actions: {
@@ -72,7 +78,6 @@ export const useGameStore = defineStore({
     },
 
     async register(newPlayer) {
-      debugger
       const response = await fetch ("http://127.0.0.1:5037/players", {
         method: 'POST',
         headers: {
@@ -80,19 +85,18 @@ export const useGameStore = defineStore({
         },
         body: JSON.stringify(newPlayer)
       })
-      const currentPlayer = await response.json();
-      return currentPlayer
-
-
+      const currentPlayerData = await response.json();
+      // newly registered user as the currentPlayer (ready to play)
+      this.updateCurrentPlayer(currentPlayerData)
       // lead to display of Play or See list of games
     },
-    //
-    // addPlayer(answer) {
-    //   if (this.currentGuess.length < this.max_guesses_allowed){
-    //     this.currentGuess.push(emoji)
-    //     return this.currentGuess
-    //   }
-    // },
+
+    // retrieves player information and update currentPlayer
+    updateCurrentPlayer(data) {
+      this.currentPlayer.first_name = data.first_name
+      this.currentPlayer.last_name = data.last_name
+      this.currentPlayer.email_address =data.email_address
+    },
 
     myCoolAdder() {
       this.activeRow += 1

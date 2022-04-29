@@ -174,5 +174,6 @@ def register_player():
     # return player's data except password back to the front end
     return player.serialize()
 
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5037)

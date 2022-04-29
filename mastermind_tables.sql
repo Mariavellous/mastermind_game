@@ -1,15 +1,15 @@
 
 -- DROP TABLE IF EXISTS mastermind;
-DROP TABLE IF EXISTS players, games, guesses, computer;
+DROP TABLE IF EXISTS players, games, guesses;
 -- CREATE DATABASE mastermind;
 -- CREATE SCHEMA public;
 
 CREATE TABLE players(
 id SERIAL PRIMARY KEY,
-first_name VARCHAR(30) NOT NULL,
-last_name VARCHAR(30) NOT NULL,
-email_address VARCHAR(50) UNIQUE NOT NULL,
-password VARCHAR NOT NULL
+first_name VARCHAR(30) NOT NULL CHECK (length(first_name) > 0),
+last_name VARCHAR(30) NOT NULL CHECK (length(last_name) > 0),
+email_address VARCHAR(50) UNIQUE NOT NULL CHECK(email_address LIKE '%@%.%'),
+password VARCHAR NOT NULL CHECK (length(password) > 6)
 );
 
 

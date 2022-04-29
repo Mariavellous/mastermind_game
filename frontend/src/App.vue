@@ -24,6 +24,7 @@
             <RouterLink to="/">Home</RouterLink>
             <RouterLink to="/games">Play</RouterLink>
             <RouterLink to="/register">Register</RouterLink>
+            <RouterLink to="/login">Login</RouterLink>
           </nav>
         </div>
       </div>
