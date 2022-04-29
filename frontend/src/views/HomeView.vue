@@ -1,13 +1,31 @@
 <script>
+  export default {
+    computed: {
+      loggedIn() {
+        if (this.$store.currentPlayer.email_address !== null) {
+          return true
+        }
+        return false
+      },
+      gamesLink() {
+        if (this.loggedIn) {
+          return "/games"
+        } else {
+          return "/login"
+        }
+      }
+    }
+  }
 </script>
 
 <template>
   <main>
     <h1> Mastermind Game </h1>
     <nav>
-      <RouterLink to="/games">Play</RouterLink>
-      <RouterLink to="/register">Register</RouterLink>
-      <RouterLink to="/login">Login</RouterLink>
+            <RouterLink :to="gamesLink">Play</RouterLink>
+            <RouterLink v-if="!this.loggedIn" to="/register">Register</RouterLink>
+            <RouterLink v-if="!this.loggedIn" to="/login">Login</RouterLink>
+            <RouterLink v-if="this.loggedIn" to="/logout">Logout</RouterLink>
 
     </nav>
   </main>

@@ -8,6 +8,22 @@
       'Register': Register,
       'RouterView': RouterView,
       'RouterLink': RouterLink
+    },
+
+    computed: {
+      loggedIn() {
+        if (this.$store.currentPlayer.email_address !== null) {
+          return true
+        }
+        return false
+      },
+      gamesLink(){
+        if(this.loggedIn) {
+          return "/games"
+        } else {
+          return "/login"
+        }
+      }
     }
   }
 </script>
@@ -17,14 +33,16 @@
   <main class="centered-flexbox">
     <div class="header centered-flexbox">
       <div class="wrapper centered-flexbox">
-        <div class="left">left</div>
+        <div class="left">
+            <div class="navigation"> <RouterLink to="/">Home</RouterLink> </div>
+        </div>
         <div class="space"></div>
         <div class="right">
           <nav>
-            <RouterLink to="/">Home</RouterLink>
-            <RouterLink to="/games">Play</RouterLink>
-            <RouterLink to="/register">Register</RouterLink>
-            <RouterLink to="/login">Login</RouterLink>
+            <RouterLink :to="gamesLink" class="navigation" >Play</RouterLink>
+            <RouterLink v-if="!this.loggedIn" to="/register" class="navigation" >Register</RouterLink>
+            <RouterLink v-if="!this.loggedIn" to="/login" class="navigation" >Login</RouterLink>
+            <RouterLink v-if="this.loggedIn" to="/logout" class="navigation" >Logout</RouterLink>
           </nav>
         </div>
       </div>
@@ -96,6 +114,14 @@
     height: 50px;
     width: 100%;
     background-color: #f2f2f2;
+  }
+
+  nav {
+    display: flex;
+  }
+  nav .navigation {
+    margin-left: 3px;
+    margin-right: 3px;
   }
 
 </style>
