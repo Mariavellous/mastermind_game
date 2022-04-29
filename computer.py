@@ -2,8 +2,8 @@
 import requests
 
 class Computer:
-  def __init__(self):
-    pass
+  def __init__(self, id):
+    self.id = id
 
     # Retrieves randomize integers using random.org API and converts it into emojis.
     # Current Theme: Wedding Emojis

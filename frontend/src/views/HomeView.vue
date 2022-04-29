@@ -21,10 +21,11 @@
 <template>
   <main>
     <h1> Mastermind Game </h1>
+    <h5 class="emoji-title">🤵‍♂️👰‍♀💒🔔💐❤️🫶🎊️</h5>
     <nav>
-            <RouterLink :to="gamesLink">Play</RouterLink>
-            <RouterLink v-if="!this.loggedIn" to="/register">Register</RouterLink>
+            <RouterLink :to="gamesLink" class="play">Play</RouterLink>
             <RouterLink v-if="!this.loggedIn" to="/login">Login</RouterLink>
+            <RouterLink v-if="!this.loggedIn" to="/register">Register</RouterLink>
             <RouterLink v-if="this.loggedIn" to="/logout">Logout</RouterLink>
 
     </nav>
@@ -46,5 +47,27 @@
     flex-direction: column;
     justify-content: center;
     margin: 5rem;
+  }
+
+  nav a {
+    padding: 5px 10px;
+    width: 100%;
+    background: royalblue;
+    text-align: center;
+    border-radius: 8px;
+    color: white;
+    margin-bottom: 10px;
+  }
+
+  a.play {
+    background-color: orange;
+  }
+  h1 {
+    text-align: center;
+    padding-bottom: 10px;
+  }
+  .emoji-title {
+    font-size: 5rem;
+    text-align: center;
   }
 </style>

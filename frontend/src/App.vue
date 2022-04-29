@@ -60,6 +60,10 @@
     margin: 0;
   }
 
+  a {
+     text-decoration: none; /* no underline */
+  }
+
   #app {
     height: 100%;
   }

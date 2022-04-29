@@ -21,6 +21,7 @@ export const useGameStore = defineStore({
         },
     },
     currentPlayer: {
+      id: null,
       first_name: null,
       last_name: null,
       email_address: null,
@@ -105,10 +106,13 @@ export const useGameStore = defineStore({
 
     // retrieves player information and update currentPlayer
     updateCurrentPlayer(player) {
+      this.currentPlayer.id = player.id
       this.currentPlayer.first_name = player.first_name
       this.currentPlayer.last_name = player.last_name
       this.currentPlayer.email_address =player.email_address
     },
+
+    // async begin()
 
   }
 })

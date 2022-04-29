@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import insert
+from sqlalchemy import or_
 from sqlalchemy.ext.automap import automap_base
 import os
 # enable Cross-Origin Resource Sharing (CORS) in Flask, since our front-and back-end will be served on separate ports
@@ -84,27 +84,41 @@ class Players(Base, UserMixin, db.Model):
 Base.prepare(db.engine, reflect=True)
 
 
+# check to see if "computer@reach.com" exist in database, otherwise make it
+robot = Players.query.filter_by(email_address="computer@reach.com").first()
+if robot == None:
+    robot = Players(first_name="Computer", last_name="Computer", email_address="computer@reach.com", password="password")
+    db.session.add(robot)
+    db.session.commit()
 
-
-computer = Computer()
+computer = Computer(robot.id)
 
 
 @app.route('/')
 def home():
     return render_template('index.html')
 
+# already login
+@app.route('/games', methods=['GET'])
+@login_required
+def show_games():
+    # return player's list of games
+    games = Games.query.filter_by(or_(player_one_id=current_user.id, player_two_id=current_user.id)).all()
+    list_of_games = list(map(lambda game: game.serialize(), games))
+    return list_of_games
+
 
 @app.route('/games', methods=['POST'])
+@login_required
 def create_new_game():
     # Special Step: fetch secret code
     # secret_code = get_secret_code()
     length_of_secret_code = 4
     secret_code_list = computer.get_secret_code(length_of_secret_code)
     # Special Step: Update Guess table
-    current_player_id = 1
     # turns the list into str for easy storage into database
     secret_code = "".join(secret_code_list)
-    new_game = Games(player_one_id=current_player_id, secret_code=secret_code, played_on=datetime.now())
+    new_game = Games(player_one_id=current_user.id, player_two_id=computer.id, secret_code=secret_code, played_on=datetime.now())
     db.session.add(new_game)
     db.session.commit()
     # game = Games.query.filter_by(player_one_id=current_player_id).first()
@@ -196,6 +210,10 @@ def login():
     else:
         error = "Incorrect password. Please try again."
         return error
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Players.get(user_id)
 
 
 if __name__ == "__main__":
