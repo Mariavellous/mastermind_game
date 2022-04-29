@@ -10,4 +10,5 @@ app.use(createPinia())
 app.use(router)
 
 app.config.globalProperties.$store = useGameStore();
+app.config.globalProperties.$router = router
 app.mount('#app')

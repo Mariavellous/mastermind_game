@@ -8,6 +8,7 @@ from flask_cors import CORS
 import psycopg2
 from computer import Computer
 from datetime import datetime
+from flask_login import UserMixin, LoginManager, login_user, login_required, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -38,6 +39,8 @@ db = SQLAlchemy(app)
 # mastermind database, has three tables "players", "guesses" and "games" set up
 Base = automap_base(db.Model)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 class Games(Base, db.Model):
     # extracts information from database row (sqlalchemy orm)
@@ -66,7 +69,7 @@ class Guesses(Base, db.Model):
         }
 
 
-class Players(Base, db.Model):
+class Players(Base, UserMixin, db.Model):
     # extracts information from database row(sqlachemy orm)
     def serialize(self):
         return {
@@ -175,10 +178,25 @@ def register_player():
     return player.serialize()
 
 
+# Player wants to login
 @app.route('/login', methods=['POST'])
 def login():
     # retrieves data from user input
     player = request.json
+    error = None
+    email_address = player["email_address"]
+    password = player["password"]
+    user = Players.query.filter(Players.email_address == email_address).first()
+    if user == None:
+        error = "That email does not exist. Please try again"
+        return error
+    elif check_password_hash(user.password, password):
+        login_user(user)
+        return user.serialize()
+    else:
+        error = "Incorrect password. Please try again."
+        return error
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5037)

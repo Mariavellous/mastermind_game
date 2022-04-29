@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-
+import router from '../router'
 
 export const useGameStore = defineStore({
   id: 'game',
@@ -47,13 +47,6 @@ export const useGameStore = defineStore({
         body: JSON.stringify(this.currentGuess)
       })
       const gameData = await response.json();
-      // this.my_data = json.guesses
-      // extract the list of guesses entry from guess table database
-      //this.guesses = game.guesses
-      // active row becomes row[last index] + 1
-      //this.activeRow = game.guesses.length
-      // erases the previous guess and starts over (empty list)
-      //this.currentGuess = []
       this.updateGameboard(gameData)
     },
     // makes a GET https request and returns the specific game_id#
@@ -69,11 +62,14 @@ export const useGameStore = defineStore({
     },
 
     updateGameboard(gameData) {
+      // extract the list of guesses entry from guess table database
       this.guesses = gameData.guesses
       this.result = gameData.game.result
       this.max_attempts_allowed = gameData.game.max_attempts_allowed
       this.played_on = gameData.game.played_on
+      // active row becomes row[last index] + 1
       this.activeRow = gameData.guesses.length
+      // erases the previous guess and starts over (empty list)
       this.currentGuess = []
     },
 
@@ -88,7 +84,8 @@ export const useGameStore = defineStore({
       const currentPlayerData = await response.json();
       // newly registered user as the currentPlayer (ready to play)
       this.updateCurrentPlayer(currentPlayerData)
-      // lead to display of Play or See list of games
+      // lead to display Play game or see list of games
+      await router.push({ path: '/games' })
     },
 
     async login(player) {
@@ -103,6 +100,7 @@ export const useGameStore = defineStore({
       // successful login player becomes currentPlayer (ready to play)
       this.updateCurrentPlayer(playerData)
       // lead to display Play game or see list of games
+      await router.push({ path: '/games' })
     },
 
     // retrieves player information and update currentPlayer
@@ -111,11 +109,6 @@ export const useGameStore = defineStore({
       this.currentPlayer.last_name = player.last_name
       this.currentPlayer.email_address =player.email_address
     },
-
-    myCoolAdder() {
-      this.activeRow += 1
-    }
-
 
   }
 })
