@@ -11,10 +11,6 @@ from datetime import datetime
 from flask_login import UserMixin, LoginManager, login_user, login_required, current_user, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
-
-
-
 # library that takes key values in .env and places them in the "environment/computer" (where app is running)
 from dotenv import load_dotenv
 load_dotenv()
@@ -24,8 +20,8 @@ app = Flask(__name__)
 # generates the CSRF token similar to the Flask app secret key
 app.config["SECRET_KEY"] = os.environ["MASTERMIND_SECRET_KEY"]
 app.config["DEBUG"] = True
-CORS(app)
-CORS(app, resources={r'/*': {'origins': '*'}}, CORS_SUPPORTS_CREDENTIALS=True)
+
+CORS(app, resources={r'/*': {'origins': ['http://localhost:3000', 'http://localhost:5037']}}, supports_credentials=True)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Connect to database
@@ -103,9 +99,11 @@ def home():
 @login_required
 def show_games():
     # return player's list of games
-    games = Games.query.filter_by(or_(player_one_id=current_user.id, player_two_id=current_user.id)).all()
+    games = Games.query.filter(
+        or_(Games.player_one_id == current_user.id, Games.player_two_id == current_user.id)
+    ).all()
     list_of_games = list(map(lambda game: game.serialize(), games))
-    return list_of_games
+    return jsonify(list_of_games)
 
 
 @app.route('/games', methods=['POST'])
@@ -192,6 +190,12 @@ def register_player():
     return player.serialize()
 
 
+# Called when the game loads. login the user automatically
+@app.route('/auto_login', methods=['POST'])
+@login_required
+def auto_login():
+    return current_user.serialize()
+
 # Player wants to login
 @app.route('/login', methods=['POST'])
 def login():
@@ -213,7 +217,7 @@ def login():
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Players.get(user_id)
+    return Players.query.get(user_id)
 
 
 if __name__ == "__main__":

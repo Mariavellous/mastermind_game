@@ -29,6 +29,7 @@
             <RouterLink v-if="this.loggedIn" to="/logout">Logout</RouterLink>
 
     </nav>
+
   </main>
 </template>
 

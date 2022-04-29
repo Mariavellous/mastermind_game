@@ -17,7 +17,7 @@
 
 
 <template>
-<!--  {{this.$store.play}}-->
+          {{ this.$store.getGames() }}
   <ActionButtons/>
   <Gameboard/>
 

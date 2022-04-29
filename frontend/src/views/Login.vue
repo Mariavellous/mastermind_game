@@ -3,8 +3,8 @@
     data() {
       return {
         player: {
-          email_address: "",
-          password: "",
+          email_address: "hello@gmail.com",
+          password: "hello",
         }
       }
     },

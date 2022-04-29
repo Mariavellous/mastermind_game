@@ -40,7 +40,7 @@ export const useGameStore = defineStore({
       this.currentGuess.pop()
     },
     async submitGuess() {
-      const response = await fetch("http://127.0.0.1:5037/games/1/guesses", {
+      const response = await fetch("/games/1/guesses", {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -52,8 +52,9 @@ export const useGameStore = defineStore({
     },
     // makes a GET https request and returns the specific game_id#
     async play() {
-      const response = await fetch ("http://127.0.0.1:5037/games/1", {
+      const response = await fetch ("/games/1", {
         method: 'GET',
+        credentials: "include",
         headers: {
           "Content-Type": "application/json"
         }
@@ -75,7 +76,7 @@ export const useGameStore = defineStore({
     },
 
     async register(newPlayer) {
-      const response = await fetch ("http://127.0.0.1:5037/players", {
+      const response = await fetch ("/players", {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -89,8 +90,15 @@ export const useGameStore = defineStore({
       await router.push({ path: '/games' })
     },
 
+    async autoLogin(){
+      const response = await fetch("/auto_login", {
+        method: 'POST',
+      })
+      const playerData = await response.json();
+      this.updateCurrentPlayer(playerData)
+    },
     async login(player) {
-      const response = await fetch("http://127.0.0.1:5037/login", {
+      const response = await fetch("/login", {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -112,7 +120,18 @@ export const useGameStore = defineStore({
       this.currentPlayer.email_address =player.email_address
     },
 
-    // async begin()
+    async getGames() {
+      const response = await fetch("/games", {
+        method: 'GET',
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
+      // retrieve list of games data from database
+      const gamesData = await response.json();
+      console.log(gamesData)
+    },
 
   }
 })
