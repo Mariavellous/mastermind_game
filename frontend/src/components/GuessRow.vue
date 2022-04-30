@@ -2,7 +2,7 @@
   export default {
     data() {
       return {
-        THEME_MAP: this.$store.themes.wedding
+        THEME_MAP: this.$store.themes.wedding,
       }
     },
     props: {
@@ -60,7 +60,7 @@
           if (copy.length < this.$store.max_guesses_allowed) {
             let num_empty_box = this.$store.max_guesses_allowed - copy.length
             for(let i = 0; i < num_empty_box; i++) {
-              copy.push("🔘")
+              copy.push("empty-hint")
             }
           }
         return copy
@@ -77,7 +77,7 @@
       <h1> {{this.rowLabel}} </h1>
       <button v-for="(emoji,index) in guesses" :key="index" class="line">{{THEME_MAP[emoji]}}</button>
       <div class="hint-container">
-        <button v-for="(hint,index) in hints" :key="index" class="hint"> {{hint}} </button>
+        <button v-for="(hint,index) in hints" :key="index" class="hint"> {{THEME_MAP[hint]}} </button>
       </div>
 
     </div>

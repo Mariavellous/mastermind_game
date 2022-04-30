@@ -1,7 +1,6 @@
 <script>
   import {RouterLink, RouterView} from 'vue-router'
   import Register from '@/views/Register.vue'
-  import GetGame from '@/components/GetGame.vue'
   // import PlayMode from '@/views/PlayMode.vue'
   export default {
     components: {
@@ -46,9 +45,9 @@
         <div class="space"></div>
         <div class="right">
           <nav>
-            <div v-if="this.loggedIn" class="greeting">  Hi, {{this.$store.currentPlayer.first_name}} </div>
+            <div v-if="this.loggedIn" class="greeting">  Hi, {{this.$store.currentPlayer.first_name}}! 👋 </div>
 
-            <RouterLink :to="gamesLink" class="navigation" >Play</RouterLink>
+            <RouterLink :to="gamesLink" class="navigation" >Games</RouterLink>
             <RouterLink v-if="!this.loggedIn" to="/register" class="navigation" >Register</RouterLink>
             <RouterLink v-if="!this.loggedIn" to="/login" class="navigation" >Login</RouterLink>
             <RouterLink @click="logout" v-if="this.loggedIn" to="/" class="navigation" >Logout</RouterLink>

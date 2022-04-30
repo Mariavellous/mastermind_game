@@ -19,7 +19,7 @@ export const useGameStore = defineStore({
       wedding: {
           "0": "🤵‍♂️", "1": "👰‍♀️", "2": "💒", "3": "🔔",
           "4": "💐", "5": "❤️", "6": "🫶", "7": "🎊",
-          "empty-emoji": "__", "empty-hint": "🔘"
+          "empty-emoji": "__", "empty-hint": "🔘", "Y": "🟩", "M": "🟨"
         },
     },
     currentPlayer: {

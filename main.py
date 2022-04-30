@@ -42,7 +42,7 @@ class Games(Base, db.Model):
     # extracts information from database row (sqlalchemy orm)
     def serialize(self):
         secret_code = self.secret_code
-        # hides secret_code if game is not done
+        # hide secret_code if game is not done
         if self.result == None:
             secret_code = None
 
