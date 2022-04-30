@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import or_
+from sqlalchemy import or_, asc, desc
 from sqlalchemy.ext.automap import automap_base
 import os
 # enable Cross-Origin Resource Sharing (CORS) in Flask, since our front-and back-end will be served on separate ports
@@ -101,7 +101,7 @@ def show_games():
     # return player's list of games
     games = Games.query.filter(
         or_(Games.player_one_id == current_user.id, Games.player_two_id == current_user.id)
-    ).all()
+    ).order_by(desc(Games.id)).all()
     list_of_games = list(map(lambda game: game.serialize(), games))
     return jsonify(list_of_games)
 
