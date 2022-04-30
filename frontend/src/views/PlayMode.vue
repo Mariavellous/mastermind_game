@@ -16,6 +16,14 @@
       this.$store.gameId = this.$router.currentRoute.value.params.id
       this.$store.play()
     },
+    computed: {
+      // server only sends this when game is over
+      secretCode(){
+        return this.$store.secretCode.split('').map( number => {
+          return this.$store.themes.wedding[number]
+        }).join('')
+      }
+    },
     // Game ended if $store.result is either true or false.
     watch: {
       '$store.result'() {
@@ -35,6 +43,7 @@
         <div class="modal">
             <p v-if="this.$store.result === true">🎉 You won!</p>
             <p v-if="this.$store.result === false">😭 You Lost</p>
+          <p>Secret Code was {{this.secretCode}}</p>
         </div>
       </Modal>
 

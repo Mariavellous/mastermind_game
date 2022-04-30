@@ -31,7 +31,7 @@
             <RouterLink :to="gamesLink" class="play">Play</RouterLink>
             <RouterLink v-if="!this.loggedIn" to="/login">Login</RouterLink>
             <RouterLink v-if="!this.loggedIn" to="/register">Register</RouterLink>
-            <div v-if="this.loggedIn" @click="logout">Logout</div>
+            <div v-if="this.loggedIn" @click="logout" class="logout">Logout</div>
 
     </nav>
 
@@ -57,6 +57,17 @@
 
   nav a {
     padding: 5px 10px;
+    width: 100%;
+    background: royalblue;
+    text-align: center;
+    border-radius: 8px;
+    color: white;
+    margin-bottom: 10px;
+  }
+
+  .logout {
+    padding: 5px 10px;
+    cursor: pointer;
     width: 100%;
     background: royalblue;
     text-align: center;

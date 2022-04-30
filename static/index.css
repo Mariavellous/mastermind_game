@@ -139,6 +139,9 @@ nav .navigation {
     text-align: center;
     border-radius: 10px;
 }
+.greeting{
+    margin-right: 15px;
+}
 
 
 h1[data-v-9ea40744] {
@@ -157,6 +160,16 @@ nav[data-v-9ea40744] {
 }
 nav a[data-v-9ea40744] {
     padding: 5px 10px;
+    width: 100%;
+    background: royalblue;
+    text-align: center;
+    border-radius: 8px;
+    color: white;
+    margin-bottom: 10px;
+}
+.logout[data-v-9ea40744] {
+    padding: 5px 10px;
+    cursor: pointer;
     width: 100%;
     background: royalblue;
     text-align: center;

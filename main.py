@@ -41,17 +41,21 @@ login_manager.init_app(app)
 class Games(Base, db.Model):
     # extracts information from database row (sqlalchemy orm)
     def serialize(self):
+        secret_code = self.secret_code
+        # hides secret_code if game is not done
+        if self.result == None:
+            secret_code = None
+
         return {
             'id': self.id,
             'player_one_id': self.player_one_id,
             'player_two_id': self.player_two_id,
             'result': self.result,
-            'secret_code': self.secret_code,
+            'secret_code': secret_code,
             'number_of_attempts': self.number_of_attempts,
             'max_attempts_allowed': self.max_attempts_allowed,
-            'played_on': self.played_on,
+            'played_on': self.played_on
         }
-
 
 class Guesses(Base, db.Model):
     # extracts information from database row (sqlalchemy orm)

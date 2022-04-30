@@ -14,6 +14,7 @@ export const useGameStore = defineStore({
     guesses: [],
     result: null,
     played_on: null,
+    secretCode: null,
     themes: {
       wedding: {
           "0": "🤵‍♂️", "1": "👰‍♀️", "2": "💒", "3": "🔔",
@@ -77,6 +78,7 @@ export const useGameStore = defineStore({
       // erases the previous guess and starts over (empty list)
       this.currentGuess = []
       this.gameId = gameData.game.id
+      this.secretCode = gameData.game.secret_code
     },
 
     async register(newPlayer) {

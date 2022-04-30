@@ -26,6 +26,11 @@
           return "/login"
         }
       }
+    },
+    methods: {
+      logout() {
+        this.$store.logout()
+      }
     }
   }
 </script>
@@ -41,10 +46,12 @@
         <div class="space"></div>
         <div class="right">
           <nav>
+            <div v-if="this.loggedIn" class="greeting">  Hi, {{this.$store.currentPlayer.first_name}} </div>
+
             <RouterLink :to="gamesLink" class="navigation" >Play</RouterLink>
             <RouterLink v-if="!this.loggedIn" to="/register" class="navigation" >Register</RouterLink>
             <RouterLink v-if="!this.loggedIn" to="/login" class="navigation" >Login</RouterLink>
-            <RouterLink v-if="this.loggedIn" to="/logout" class="navigation" >Logout</RouterLink>
+            <RouterLink @click="logout" v-if="this.loggedIn" to="/" class="navigation" >Logout</RouterLink>
           </nav>
         </div>
 
@@ -162,6 +169,10 @@
     font-size: 20px;
     text-align: center;
     border-radius: 10px;
+  }
+
+  .greeting{
+    margin-right: 15px;
   }
 
 </style>
