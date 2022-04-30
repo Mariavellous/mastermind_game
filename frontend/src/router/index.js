@@ -1,8 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Register from '../views/Register.vue'
-import Play from '../views/PlayMode.vue'
+import Games from '../views/Games.vue'
 import Login from '../views/Login.vue'
+import PlayMode from '../views/PlayMode.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -20,13 +21,18 @@ const router = createRouter({
     {
       path: '/games',
       name: 'games',
-      component: Play
+      component: Games
     },
     {
       path: '/login',
       name: 'name',
       component: Login
-    }
+    },
+    {
+      path: '/games/:id',
+      name: 'gameid',
+      component: PlayMode
+    },
   ]
 })
 

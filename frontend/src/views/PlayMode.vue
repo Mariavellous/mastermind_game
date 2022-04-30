@@ -1,31 +1,46 @@
-<script >
+<script>
   import ActionButtons from '@/components/ActionButtons.vue'
   import Gameboard from '@/components/Gameboard.vue'
   // import Hint from '@/components/GuessRow.vue'
   export default {
+    data(){
+      return {
+        isShow: false
+      }
+    },
     components: {
       "ActionButtons": ActionButtons,
       "Gameboard": Gameboard
     },
     mounted() {
+      this.$store.gameId = this.$router.currentRoute.value.params.id
       this.$store.play()
-
-  },
+    },
+    // Game ended if $store.result is either true or false.
+    watch: {
+      '$store.result'() {
+        if (this.$store.result !== null) {
+          this.isShow = true
+        }
+      }
+    }
   }
 </script>
 
 
-
 <template>
-          {{ this.$store.getGames() }}
-  <ActionButtons/>
-  <Gameboard/>
+<!--show player if they won or not-->
+    <Modal v-model="isShow">
+      <div class="modal">
+          <p v-if="this.$store.result === true">🎉 You won!</p>
+          <p v-if="this.$store.result === false">😭 You Lost</p>
+      </div>
+    </Modal>
 
-<!--  <Hint/> -->
-
-
+    <ActionButtons/>
+    <Gameboard/>
 </template>
 
-<style>
+<style scoped>
 
 </style>

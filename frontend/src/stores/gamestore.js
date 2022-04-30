@@ -9,7 +9,7 @@ export const useGameStore = defineStore({
     activeRow: 0,
     max_attempts_allowed: 0,
     max_guesses_allowed: 4,
-    gameId: 1,
+    gameId: null,
     guesses: [],
     result: null,
     played_on: null,
@@ -26,6 +26,7 @@ export const useGameStore = defineStore({
       last_name: null,
       email_address: null,
     },
+    gamesList: [],
 
   }),
 
@@ -40,7 +41,7 @@ export const useGameStore = defineStore({
       this.currentGuess.pop()
     },
     async submitGuess() {
-      const response = await fetch("/games/1/guesses", {
+      const response = await fetch(`/games/${this.gameId}/guesses`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -52,7 +53,7 @@ export const useGameStore = defineStore({
     },
     // makes a GET https request and returns the specific game_id#
     async play() {
-      const response = await fetch ("/games/1", {
+      const response = await fetch (`/games/${this.gameId}`, {
         method: 'GET',
         credentials: "include",
         headers: {
@@ -73,10 +74,11 @@ export const useGameStore = defineStore({
       this.activeRow = gameData.guesses.length
       // erases the previous guess and starts over (empty list)
       this.currentGuess = []
+      this.gameId = gameData.game.id
     },
 
     async register(newPlayer) {
-      const response = await fetch ("/players", {
+      const response = await fetch (`/players`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -91,14 +93,14 @@ export const useGameStore = defineStore({
     },
 
     async autoLogin(){
-      const response = await fetch("/auto_login", {
+      const response = await fetch(`/auto_login`, {
         method: 'POST',
       })
       const playerData = await response.json();
       this.updateCurrentPlayer(playerData)
     },
     async login(player) {
-      const response = await fetch("/login", {
+      const response = await fetch(`/login`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -121,7 +123,7 @@ export const useGameStore = defineStore({
     },
 
     async getGames() {
-      const response = await fetch("/games", {
+      const response = await fetch(`/games`, {
         method: 'GET',
         credentials: "include",
         headers: {
@@ -130,8 +132,26 @@ export const useGameStore = defineStore({
       })
       // retrieve list of games data from database
       const gamesData = await response.json();
-      console.log(gamesData)
+      this.gamesList = gamesData
+      console.log(this.gamesList)
+
     },
+    async newGame() {
+      const response = await fetch("/games", {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/json"
+      },
+      })
+      // retrieves data about new game_id
+      const gameData = await response.json();
+      debugger
+      console.log(gameData)
+      this.updateGameboard(gameData)
+      console.log(this.gameId)
+      await router.push({ path: `/games/${this.gameId}` })
+    }
 
   }
 })

@@ -98,6 +98,8 @@ main {
 }
 .content {
     flex-grow: 1;
+    position: relative;
+    width: 100%;
 }
 .footer {
     height: 50px;
@@ -110,6 +112,31 @@ nav {
 nav .navigation {
     margin-left: 3px;
     margin-right: 3px;
+}
+.vue-universal-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overscroll-behavior: contain;
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .8);
+    text-align: left;
+    position:absolute;
+}
+.modal {
+    width: 300px;
+    padding: 30px;
+    box-sizing: border-box;
+    background-color: #fff;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 10px;
 }
 
 
@@ -148,29 +175,61 @@ h1[data-v-9ea40744] {
     text-align: center;
 }
 
-button {
-  font-size: 2.7rem;
+.game-link[data-v-dfa49f12] {
+    cursor: pointer;
+    background: royalblue;
+    padding: 10px 0;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
 }
-
-.hint {
-  font-size: 1rem;
+.play-game[data-v-dfa49f12] {
+    cursor: pointer;
+    background: orange;
+    padding: 10px 0;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
 }
-
-
-.gameboard[data-v-1bdf0834] {
+h1[data-v-dfa49f12] {
+    font-weight: bold;
+    font-size: 2.75rem;
+    top: -10px;
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+}
+nav[data-v-dfa49f12] {
+    font-size: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    margin: 5rem;
 }
-button[data-v-1bdf0834] {
-    font-size: 5rem
+nav a[data-v-dfa49f12] {
+    padding: 5px 10px;
+    width: 100%;
+    background: royalblue;
+    text-align: center;
+    border-radius: 8px;
+    color: white;
+    margin-bottom: 10px;
 }
-.line[data-v-1bdf0834] {
-    color: darkgrey;
+a.play[data-v-dfa49f12] {
+    background-color: orange;
 }
-.hint[data-v-1bdf0834] {
-    font-size: 1rem
+h1[data-v-dfa49f12] {
+    text-align: center;
+    padding-bottom: 10px;
+}
+.emoji-title[data-v-dfa49f12] {
+    font-size: 5rem;
+    text-align: center;
 }
 
 h1[data-v-26084dc2] {
@@ -219,3 +278,28 @@ input[data-v-26084dc2] {
     margin-bottom: 1rem;
 }
 
+
+button {
+  font-size: 2.7rem;
+}
+
+.hint {
+  font-size: 1rem;
+}
+
+
+.gameboard[data-v-1bdf0834] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+button[data-v-1bdf0834] {
+    font-size: 5rem
+}
+.line[data-v-1bdf0834] {
+    color: darkgrey;
+}
+.hint[data-v-1bdf0834] {
+    font-size: 1rem
+}

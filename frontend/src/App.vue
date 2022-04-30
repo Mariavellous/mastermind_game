@@ -53,6 +53,7 @@
     </div>
     <div class="content centered-flexbox">
       <router-view/>
+      <div id="modals"></div>
     </div>
     <div class="footer centered-flexbox"> @Made with Love 👰‍♀️ </div>
   </main>
@@ -116,6 +117,8 @@
 
   .content {
     flex-grow: 1;
+    position: relative;
+    width: 100%;
   }
 
   .footer {
@@ -130,6 +133,34 @@
   nav .navigation {
     margin-left: 3px;
     margin-right: 3px;
+  }
+
+
+  .vue-universal-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overscroll-behavior: contain;
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .8);
+    text-align: left;
+    position:absolute;
+  }
+
+  .modal {
+    width: 300px;
+    padding: 30px;
+    box-sizing: border-box;
+    background-color: #fff;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 10px;
   }
 
 </style>

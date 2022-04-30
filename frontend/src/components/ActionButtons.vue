@@ -45,9 +45,7 @@
 
     <button @click="submit" :disabled="gameCompleted"> Submit </button>
     <div>  <button @click="undo" :disabled="gameCompleted"> Undo </button></div>
-
   </div>
-{{ this.info }}
 </template>
 
 <style>

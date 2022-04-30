@@ -119,16 +119,22 @@ def create_new_game():
     new_game = Games(player_one_id=current_user.id, player_two_id=computer.id, secret_code=secret_code, played_on=datetime.now())
     db.session.add(new_game)
     db.session.commit()
-    # game = Games.query.filter_by(player_one_id=current_player_id).first()
-    return render_template('index.html')
+    new_game_id = new_game.id
+    return get_game_id(new_game_id)
+    # current_game = Games.query.filter_by(id=new_game_id).first().serialize()
+    # return jsonify(current_game)
+    # return render_template('index.html')
 
 
 @app.route('/games/<int:game_id>/guesses', methods=['POST'])
+@login_required
 def create_new_guess(game_id):
-    current_player_id = 1
-
+    current_player_id = current_user.id
     # retrieve secret_code of this game
     game = Games.query.filter_by(id=game_id).first()
+    # makes sure that this game belongs to player_one_id
+    if game.player_one_id != current_user.id:
+        return f"You are not allowed to make guesses.", 400
     # retrieve player's guess
     new_guess = request.json
     string_new_guess = "".join(request.json)
@@ -165,6 +171,7 @@ def create_new_guess(game_id):
 # result, secret_code, num_attempts, max_attempts, played on_
 # and list_of_guesses for a specific game_id from guesses table
 @app.route('/games/<int:game_id>', methods=['GET'])
+@login_required
 def get_game_id(game_id):
     game = Games.query.get(game_id)
     guesses = Guesses.query.filter_by(game_id=game_id).all()
