@@ -44,7 +44,7 @@
             <RouterLink :to="gamesLink" class="navigation" >Play</RouterLink>
             <RouterLink v-if="!this.loggedIn" to="/register" class="navigation" >Register</RouterLink>
             <RouterLink v-if="!this.loggedIn" to="/login" class="navigation" >Login</RouterLink>
-<!--            <RouterLink v-if="this.loggedIn" to="/logout" class="navigation" >Logout</RouterLink>-->
+            <RouterLink v-if="this.loggedIn" to="/logout" class="navigation" >Logout</RouterLink>
           </nav>
         </div>
 

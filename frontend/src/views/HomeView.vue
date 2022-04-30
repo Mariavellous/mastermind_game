@@ -14,6 +14,11 @@
           return "/login"
         }
       }
+    },
+    methods: {
+      logout() {
+        this.$store.logout()
+      }
     }
   }
 </script>
@@ -26,7 +31,7 @@
             <RouterLink :to="gamesLink" class="play">Play</RouterLink>
             <RouterLink v-if="!this.loggedIn" to="/login">Login</RouterLink>
             <RouterLink v-if="!this.loggedIn" to="/register">Register</RouterLink>
-            <RouterLink v-if="this.loggedIn" to="/logout">Logout</RouterLink>
+            <div v-if="this.loggedIn" @click="logout">Logout</div>
 
     </nav>
 

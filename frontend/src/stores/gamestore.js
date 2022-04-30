@@ -148,11 +148,27 @@ export const useGameStore = defineStore({
       })
       // retrieves data about new game_id
       const gameData = await response.json();
-      debugger
-      console.log(gameData)
       this.updateGameboard(gameData)
       console.log(this.gameId)
       await router.push({ path: `/games/${this.gameId}` })
+    },
+    async logout() {
+      const response = await fetch("/logout", {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
+
+      this.currentPlayer = {
+        id: null,
+        first_name: null,
+        last_name: null,
+        email_address: null,
+      }
+      await router.push({path:`/`})
+
     }
 
   }

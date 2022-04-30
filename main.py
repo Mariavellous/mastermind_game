@@ -222,6 +222,13 @@ def login():
         error = "Incorrect password. Please try again."
         return error
 
+# User Logout
+@app.route('/logout', methods=['DELETE'])
+@login_required
+def logout():
+    logout_user()
+    return '', 204
+
 @login_manager.user_loader
 def load_user(user_id):
     return Players.query.get(user_id)
