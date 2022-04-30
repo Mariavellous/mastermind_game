@@ -14,6 +14,8 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ```sh
 npm install
+npm run build
+
 ```
 
 ### Compile and Hot-Reload for Development

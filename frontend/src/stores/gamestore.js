@@ -8,6 +8,7 @@ export const useGameStore = defineStore({
     currentGuess: [],
     activeRow: 0,
     max_attempts_allowed: 0,
+    number_of_attempts: 0,
     max_guesses_allowed: 4,
     gameId: null,
     guesses: [],
@@ -69,6 +70,7 @@ export const useGameStore = defineStore({
       this.guesses = gameData.guesses
       this.result = gameData.game.result
       this.max_attempts_allowed = gameData.game.max_attempts_allowed
+      this.number_of_attempts = gameData.game.number_of_attempts
       this.played_on = gameData.game.played_on
       // active row becomes row[last index] + 1
       this.activeRow = gameData.guesses.length

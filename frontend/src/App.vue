@@ -119,6 +119,7 @@
     flex-grow: 1;
     position: relative;
     width: 100%;
+    overflow: scroll;
   }
 
   .footer {

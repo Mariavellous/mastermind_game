@@ -5,7 +5,7 @@
   export default {
     data(){
       return {
-        isShow: false
+        isShow: false,
       }
     },
     components: {
@@ -22,25 +22,32 @@
         if (this.$store.result !== null) {
           this.isShow = true
         }
-      }
+      },
     }
   }
 </script>
 
 
 <template>
+  <div class="playmode">
 <!--show player if they won or not-->
-    <Modal v-model="isShow">
-      <div class="modal">
-          <p v-if="this.$store.result === true">🎉 You won!</p>
-          <p v-if="this.$store.result === false">😭 You Lost</p>
-      </div>
-    </Modal>
+      <Modal v-model="isShow">
+        <div class="modal">
+            <p v-if="this.$store.result === true">🎉 You won!</p>
+            <p v-if="this.$store.result === false">😭 You Lost</p>
+        </div>
+      </Modal>
 
-    <ActionButtons/>
-    <Gameboard/>
+      <Gameboard class="top"/>
+      <ActionButtons class="top"/>
+
+    </div>
 </template>
 
 <style scoped>
 
+.playmode {
+  display:flex;
+  align-items: flex-start;
+}
 </style>

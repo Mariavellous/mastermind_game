@@ -7,6 +7,11 @@
     mounted() {
       console.log(GuessRow)
     },
+    computed: {
+      attemptsLeft() {
+        return this.$store.max_attempts_allowed - this.$store.number_of_attempts
+      }
+    }
   }
 </script>
 
@@ -19,12 +24,13 @@
     <div v-for="index in this.$store.max_attempts_allowed" :key="index" class="playerguess">
       <GuessRow :index="index - 1" />
     </div>
-
+     <h1>  Remaining Guess Allowed:{{this.attemptsLeft}} </h1>
   </div>
 
 </template>
 
 <style scoped>
+
   .gameboard {
     display: flex;
     flex-direction: column;
