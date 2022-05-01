@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import or_, asc, desc
+from sqlalchemy import or_, asc, desc, text
 from sqlalchemy.ext.automap import automap_base
 import os
 # enable Cross-Origin Resource Sharing (CORS) in Flask, since our front-and back-end will be served on separate ports
@@ -82,7 +82,6 @@ class Players(Base, UserMixin, db.Model):
 
 # reflect the tables
 Base.prepare(db.engine, reflect=True)
-
 
 # check to see if "computer@reach.com" exist in database, otherwise make it
 robot = Players.query.filter_by(email_address="computer@reach.com").first()
