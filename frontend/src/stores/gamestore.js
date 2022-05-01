@@ -9,7 +9,7 @@ export const useGameStore = defineStore({
     activeRow: 0,
     max_attempts_allowed: 0,
     number_of_attempts: 0,
-    max_guesses_allowed: 4,
+    max_guesses_allowed: 0,
     gameId: null,
     guesses: [],
     result: null,
@@ -80,7 +80,9 @@ export const useGameStore = defineStore({
       // erases the previous guess and starts over (empty list)
       this.currentGuess = []
       this.gameId = gameData.game.id
+      // secret code is provided if game is done
       this.secretCode = gameData.game.secret_code
+      this.max_guesses_allowed = gameData.game.secret_code_length
     },
 
     async register(newPlayer) {
@@ -143,19 +145,20 @@ export const useGameStore = defineStore({
       this.gamesWon = gamesData.games_won
       this.gamesLost = gamesData.games_lost
     },
-    async newGame() {
+    async newGame(mode) {
       const response = await fetch("/games", {
         method: 'POST',
         credentials: 'include',
         headers: {
           "Content-Type": "application/json"
-      },
+        },
+        body: mode
       })
       // retrieves data about new game_id
       const gameData = await response.json();
       this.updateGameboard(gameData)
       console.log(this.gameId)
-      await router.push({ path: `/games/${this.gameId}` })
+      await router.push({path: `/games/${this.gameId}`})
     },
     async logout() {
       const response = await fetch("/logout", {

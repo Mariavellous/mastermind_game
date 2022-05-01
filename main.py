@@ -41,6 +41,8 @@ class Games(Base, db.Model):
     # extracts information from database row (sqlalchemy orm)
     def serialize(self):
         secret_code = self.secret_code
+        secret_code_length = len(self.secret_code)
+
         # hide secret_code if game is not done
         if self.result == None:
             secret_code = None
@@ -53,7 +55,8 @@ class Games(Base, db.Model):
             'secret_code': secret_code,
             'number_of_attempts': self.number_of_attempts,
             'max_attempts_allowed': self.max_attempts_allowed,
-            'played_on': self.played_on
+            'played_on': self.played_on,
+            'secret_code_length': secret_code_length
         }
 
 class Guesses(Base, db.Model):
@@ -112,9 +115,11 @@ def show_games():
 @app.route('/games', methods=['POST'])
 @login_required
 def create_new_game():
+    # retrieve the difficulty mode level: length of secret_code (4, 5, 6)
+    mode = request.json
     # Special Step: fetch secret code
     # secret_code = get_secret_code()
-    length_of_secret_code = 4
+    length_of_secret_code = mode
     secret_code_list = computer.get_secret_code(length_of_secret_code)
     # Special Step: Update Guess table
     # turns the list into str for easy storage into database
@@ -155,7 +160,8 @@ def create_new_guess(game_id):
     game.player_one_id = current_player_id
     game.number_of_attempts += 1
     # Game ends if game.result is true or false. Game continues if game.result = None
-    if hint == "YYYY":
+    secret_code_hint = "Y" * len(game.secret_code)
+    if hint == secret_code_hint:
         game.result = True
     elif game.number_of_attempts == game.max_attempts_allowed:
         game.result = False

@@ -71,7 +71,7 @@ Created a `Computer Class` responsible for
 
 HINT 
 
-hint = ""
+hint = " "
 1) Each character of the guess will be compared to the character of the secret code. If it is a match, both character will be replaced with None value and add "Y" (YES - right position and right character) to the hint string.
 2) Will then loop through each guess character that are not None and see character is inside the secret code list. If character exist in secret code it will be replaced with None and add "M" (character exist but wrong position) to the hint. 
 
@@ -82,17 +82,21 @@ Created RESTFUL API routes in the server
 * `POST` /games/<int:game_id/guesses --> creates new guess 
 * `POST` /players --> register player 
 * `GET` /login --> login player 
-* `DELETE` /logout --> logout player 
-Most if not all https request from the frontend, the database gets updated and stores the new data in respective tables. The server then returns all data needed to display in the frontend. 
+* `DELETE` /logout --> logout player
+
+Most if not all https request from the frontend, the database gets updated and stores the new data in its respective tables. 
+The server then returns a response of all data needed to display in the frontend. 
 
 
 # Creative Extension Implemented 
-I used the randomized numbers from random.org API as a key to the dictionary of emojis. I chose the theme wedding as an homage to a very recent special day for me. 
+* I used the randomized numbers from random.org API as a key to the dictionary of emojis. I chose the theme wedding as an homage to a very recent special day for me. 
+* Players are able to view scores: games won and games lost 
+* Add easy, medium, difficult level by: changing the number of max number of choices to 4, 5, 6. 
+
+
 
 # Creative Extensions Attempted 
 * I would love to for users to be able to choose different themes that will display different emojis for the foodie, animal lover, flags for travelers, etc. 
-* Players are able to view scores: games win and games lost 
-* Add difficulty level by: increasing the number of max number of choices to 5 or higher. 
 * Add difficulty level by: decreasing the number of max_attempts_allowed to 9 or lower. 
 
 

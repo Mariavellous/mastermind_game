@@ -160,7 +160,6 @@
   }
 
   .modal {
-    width: 300px;
     padding: 30px;
     box-sizing: border-box;
     background-color: #fff;
