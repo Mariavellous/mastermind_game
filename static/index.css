@@ -238,6 +238,15 @@ h1[data-v-dfa49f12] {
     font-size: 5rem;
     text-align: center;
 }
+.record[data-v-dfa49f12] {
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 600;
+}
+ul[data-v-dfa49f12] {
+    padding-inline-start: 0
+}
 
 h1[data-v-26084dc2] {
     font-weight: bold;

@@ -13,6 +13,13 @@
       },
       async startGame() {
         await this.$store.newGame()
+      },
+      resultEmoji(result) {
+        if(result === true) {
+          return "🎉"
+        } else if(result === false) {
+          return "😭"
+        }
       }
     }
   }
@@ -24,7 +31,10 @@
     <main>
     <h1> Mastermind Game </h1>
     <h5 class="emoji-title">🤵‍♂️👰‍♀💒🔔💐❤️🫶🎊️</h5>
-
+      <div class="record">
+        <div>Won: {{this.$store.gamesWon}} </div>
+        <div>Lost: {{this.$store.gamesLost}} </div>
+      </div>
     <nav>
 <!--      will route to new game -->
 <ul @click="startGame" class="play-game"> New Game </ul>
@@ -37,7 +47,9 @@
             class="game-link"
             @click="select(game.id)"
         >
-          Game:{{ game.id }} Played On:{{ new Date(game.played_on).toDateString() }}
+          <span>Game:{{ game.id }}</span>&nbsp;
+          <span>{{ new Date(game.played_on).toDateString() }}&nbsp;&nbsp;{{resultEmoji(game.result)}}</span>
+
         </li>
       </ul>
 
@@ -104,5 +116,16 @@
   .emoji-title {
     font-size: 5rem;
     text-align: center;
+  }
+
+  .record {
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 600;
+  }
+
+  ul {
+    padding-inline-start: 0
   }
 </style>

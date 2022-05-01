@@ -15,6 +15,8 @@ export const useGameStore = defineStore({
     result: null,
     played_on: null,
     secretCode: null,
+    gamesWon: 0,
+    gamesLost: 0,
     themes: {
       wedding: {
           "0": "🤵‍♂️", "1": "👰‍♀️", "2": "💒", "3": "🔔",
@@ -123,7 +125,7 @@ export const useGameStore = defineStore({
       this.currentPlayer.id = player.id
       this.currentPlayer.first_name = player.first_name
       this.currentPlayer.last_name = player.last_name
-      this.currentPlayer.email_address =player.email_address
+      this.currentPlayer.email_address = player.email_address
     },
 
     async getGames() {
@@ -134,11 +136,12 @@ export const useGameStore = defineStore({
           "Content-Type": "application/json"
         },
       })
+
       // retrieve list of games data from database
       const gamesData = await response.json();
-      this.gamesList = gamesData
-      console.log(this.gamesList)
-
+      this.gamesList = gamesData.games
+      this.gamesWon = gamesData.games_won
+      this.gamesLost = gamesData.games_lost
     },
     async newGame() {
       const response = await fetch("/games", {

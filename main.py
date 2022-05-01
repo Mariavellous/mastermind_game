@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import or_, asc, desc, text
+from sqlalchemy import or_, and_, desc
 from sqlalchemy.ext.automap import automap_base
 import os
 # enable Cross-Origin Resource Sharing (CORS) in Flask, since our front-and back-end will be served on separate ports
@@ -28,8 +28,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 # creates a new database
 # this connects to the Heroku database
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("MASTERMIND_DATABASE_URL")
-app.config["SQLACHEMY_TRACK_MODIFICARIONS"] = True
-app.config["SQLACHEMY_ECHO"] = True
+app.config["SQLALCHEMY_ECHO"] = True
 db = SQLAlchemy(app)
 
 # mastermind database, has three tables "players", "guesses" and "games" set up
@@ -92,7 +91,6 @@ if robot == None:
 
 computer = Computer(robot.id)
 
-
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -106,8 +104,10 @@ def show_games():
         or_(Games.player_one_id == current_user.id, Games.player_two_id == current_user.id)
     ).order_by(desc(Games.id)).all()
     list_of_games = list(map(lambda game: game.serialize(), games))
-    return jsonify(list_of_games)
-
+    games_won = Games.query.filter(and_(Games.player_one_id == current_user.id, Games.result == True)).count()
+    games_lost = Games.query.filter(and_(Games.player_one_id == current_user.id, Games.result == False)).count()
+    data = {"games_won": games_won, "games_lost": games_lost, "games": list_of_games}
+    return jsonify(data)
 
 @app.route('/games', methods=['POST'])
 @login_required
@@ -124,9 +124,6 @@ def create_new_game():
     db.session.commit()
     new_game_id = new_game.id
     return get_game_id(new_game_id)
-    # current_game = Games.query.filter_by(id=new_game_id).first().serialize()
-    # return jsonify(current_game)
-    # return render_template('index.html')
 
 
 @app.route('/games/<int:game_id>/guesses', methods=['POST'])
@@ -205,6 +202,7 @@ def register_player():
 @login_required
 def auto_login():
     return current_user.serialize()
+
 
 # Player wants to login
 @app.route('/login', methods=['POST'])

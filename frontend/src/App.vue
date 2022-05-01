@@ -46,7 +46,6 @@
         <div class="right">
           <nav>
             <div v-if="this.loggedIn" class="greeting">  Hi, {{this.$store.currentPlayer.first_name}}! 👋 </div>
-
             <RouterLink :to="gamesLink" class="navigation" >Games</RouterLink>
             <RouterLink v-if="!this.loggedIn" to="/register" class="navigation" >Register</RouterLink>
             <RouterLink v-if="!this.loggedIn" to="/login" class="navigation" >Login</RouterLink>
