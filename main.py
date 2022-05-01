@@ -102,7 +102,6 @@ def home():
   return render_template('index.html')
 
 
-# already login
 @app.route('/games', methods=['GET'])
 @login_required
 def show_games():
