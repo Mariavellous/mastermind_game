@@ -3,8 +3,8 @@
     data() {
       return {
         player: {
-          email_address: "hello@gmail.com",
-          password: "hello",
+          email_address: "reach@linkedin.com",
+          password: "reach",
         }
       }
     },
@@ -21,6 +21,7 @@
 <template>
   <div class=input-wrapper>
       <h1> Welcome Back! </h1>
+      <h3> For demo: Please use given login info below to login. </h3>
       <label>Email Address</label>
       <input type="email" class="register-form" placeholder="Email Address" v-model="player.email_address" required
              data-validation-required-message="Please enter your email address.">
@@ -40,6 +41,12 @@
     top: -10px;
     padding-top: 3rem;
     padding-bottom: 5rem;
+  }
+
+  h3 {
+    font-style: italic;
+    padding-bottom: 1rem;
+    font-weight: normal;
   }
 
   label {
