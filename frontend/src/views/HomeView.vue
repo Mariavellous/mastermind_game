@@ -34,6 +34,11 @@
             <div v-if="this.loggedIn" @click="logout" class="logout">Logout</div>
 
     </nav>
+    <div class="instruction">  <p>How to Play: </p>
+      <p> Guess the secret code. </p>
+      <p> A 🟩 hint will be given if you get the right emoji in the right position. </p>
+      <p> A 🟨 hint will be given if you get the right emoji but not the right position. </p>
+    </div>
 
   </main>
 </template>
@@ -86,5 +91,11 @@
   .emoji-title {
     font-size: 5rem;
     text-align: center;
+  }
+  .instruction {
+    width: 500px;
+    font-size: 1rem;
+    justify-content: center;
+    margin: 5rem;
   }
 </style>

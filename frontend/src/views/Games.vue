@@ -1,71 +1,71 @@
 <script>
-  import router from "../router";
+import router from "../router";
 
-  export default {
-    name: "Games.vue",
-    data () {
-      return {
-        mode: 4,
-      }
+export default {
+  name: "Games.vue",
+  data() {
+    return {
+      mode: 4,
+    }
+  },
+  mounted() {
+    this.$store.getGames()
+  },
+  methods: {
+    async select(gameId) {
+      this.$store.gameId = gameId
+      await router.push({path: `/games/${gameId}`})
     },
-    mounted() {
-      this.$store.getGames()
+    async startGame() {
+      await this.$store.newGame(this.mode)
     },
-    methods: {
-      async select(gameId) {
-        this.$store.gameId = gameId
-        await router.push({ path: `/games/${gameId}` })
-      },
-      async startGame() {
-        await this.$store.newGame(this.mode)
-      },
-      resultEmoji(result) {
-        if(result === true) {
-          return "🎉"
-        } else if(result === false) {
-          return "😭"
-        }
+    resultEmoji(result) {
+      if (result === true) {
+        return "🎉"
+      } else if (result === false) {
+        return "😭"
       }
     }
   }
+}
 
 </script>
 
 <template>
 
-    <main>
+  <main>
     <h1> Mastermind Game </h1>
     <h5 class="emoji-title">🤵‍♂️👰‍♀💒🔔💐❤️🫶🎊️</h5>
-      <div class="record">
-        <div>Won: {{this.$store.gamesWon}}&nbsp;</div>
-        <div>Lost: {{this.$store.gamesLost}} </div>
-      </div>
+    <div class="record">
+      <div>Won: {{ this.$store.gamesWon }}&nbsp;</div>
+      <div>Lost: {{ this.$store.gamesLost }}</div>
+    </div>
 
 
-<!--      will route to new game -->
-<!--      Player choose difficulty level : defaults to medium (length of 4)-->
-      <div class="centered-flexbox new-game-container">
-        <select v-model="mode" class="select">
-          <option value="3">easy</option>
-          <option value="4" selected="selected">medium</option>
-          <option value="5">hard</option>
-        </select>
-        <div @click="startGame" class="play-game"> New Game</div>
-      </div>
+    <!--      will route to new game -->
+    <!--      Player choose difficulty level : defaults to medium (length of 4)-->
+    <div class="centered-flexbox new-game-container">
+      <select v-model="mode" class="select">
+        <option value="3">easy</option>
+        <option value="4" selected="selected">medium</option>
+        <option value="5">hard</option>
+      </select>
+      <div @click="startGame" class="play-game"> New Game</div>
+    </div>
 
-      <!--      if list of games exist, display it here -->
-      <ul class="">
-        <li
-            v-for="game in this.$store.gamesList"
-            :key="game"
-            class="game-link"
-            @click="select(game.id)"
-        >
-          <span>Game:{{ game.id }}</span>&nbsp;
-          <span>{{ new Date(game.played_on).toDateString() }}&nbsp;&nbsp;{{resultEmoji(game.result)}}</span>
+    <!--      if list of games exist, display it here -->
+    <ul class="">
+      <li
+          v-for="game in this.$store.gamesList"
+          :key="game"
+          class="game-link"
+          @click="select(game.id)"
+      >
+        <span>Game:{{ game.id }}</span>&nbsp;
+        <span>{{ new Date(game.played_on).toDateString() }}&nbsp;&nbsp;{{ resultEmoji(game.result) }}</span>
 
-        </li>
-      </ul>
+      </li>
+    </ul>
 
   </main>
 </template>
@@ -160,6 +160,7 @@ ul {
   margin-bottom: 10px;
   padding: 5px;
 }
+
 .new-game-container {
   margin-bottom: 30px;
 }

@@ -76,13 +76,13 @@ hint = " "
 2) Will then loop through each guess character that are not None and see character is inside the secret code list. If character exist in secret code it will be replaced with None and add "M" (character exist but wrong position) to the hint. 
 
 Created RESTFUL API routes in the server 
-* `POST` /games  --> creates a brand new game 
-* `GET` /games --> shows list of games for player 
-* `GET` /games/<int:game_id/guesses --> get specific game_id
-* `POST` /games/<int:game_id/guesses --> creates new guess 
-* `POST` /players --> register player 
-* `GET` /login --> login player 
-* `DELETE` /logout --> logout player
+* `POST` `/games`  --> creates a brand new game 
+* `GET` `/games` --> shows list of games for player 
+* `GET` `/games/<int:game_id>/guesses` --> get specific game_id
+* `POST` `/games/<int:game_id>/guesses` --> creates new guess 
+* `POST` `/players` --> register player 
+* `GET` `/login` --> login player 
+* `DELETE` `/logout` --> logout player
 
 Most if not all https request from the frontend, the database gets updated and stores the new data in its respective tables. 
 The server then returns a response of all data needed to display in the frontend. 

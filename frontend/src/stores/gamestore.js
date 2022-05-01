@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import {defineStore} from 'pinia'
 import router from '../router'
 
 export const useGameStore = defineStore({
@@ -19,10 +19,10 @@ export const useGameStore = defineStore({
     gamesLost: 0,
     themes: {
       wedding: {
-          "0": "🤵‍♂️", "1": "👰‍♀️", "2": "💒", "3": "🔔",
-          "4": "💐", "5": "❤️", "6": "🫶", "7": "🎊",
-          "empty-emoji": "__", "empty-hint": "🔘", "Y": "🟩", "M": "🟨"
-        },
+        "0": "🤵‍♂️", "1": "👰‍♀️", "2": "💒", "3": "🔔",
+        "4": "💐", "5": "❤️", "6": "🫶", "7": "🎊",
+        "empty-emoji": "__", "empty-hint": "🔘", "Y": "🟩", "M": "🟨"
+      },
     },
     currentPlayer: {
       id: null,
@@ -36,7 +36,7 @@ export const useGameStore = defineStore({
 
   actions: {
     addEmojiGuess(emoji) {
-      if (this.currentGuess.length < this.max_guesses_allowed){
+      if (this.currentGuess.length < this.max_guesses_allowed) {
         this.currentGuess.push(emoji)
         return this.currentGuess
       }
@@ -57,7 +57,7 @@ export const useGameStore = defineStore({
     },
     // makes a GET https request and returns the specific game_id#
     async play() {
-      const response = await fetch (`/games/${this.gameId}`, {
+      const response = await fetch(`/games/${this.gameId}`, {
         method: 'GET',
         credentials: "include",
         headers: {
@@ -86,7 +86,7 @@ export const useGameStore = defineStore({
     },
 
     async register(newPlayer) {
-      const response = await fetch (`/players`, {
+      const response = await fetch(`/players`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"
@@ -97,10 +97,10 @@ export const useGameStore = defineStore({
       // newly registered user as the currentPlayer (ready to play)
       this.updateCurrentPlayer(currentPlayerData)
       // lead to display Play game or see list of games
-      await router.push({ path: '/games' })
+      await router.push({path: '/games'})
     },
 
-    async autoLogin(){
+    async autoLogin() {
       const response = await fetch(`/auto_login`, {
         method: 'POST',
       })
@@ -119,7 +119,7 @@ export const useGameStore = defineStore({
       // successful login player becomes currentPlayer (ready to play)
       this.updateCurrentPlayer(playerData)
       // lead to display Play game or see list of games
-      await router.push({ path: '/games' })
+      await router.push({path: '/games'})
     },
 
     // retrieves player information and update currentPlayer
@@ -175,7 +175,7 @@ export const useGameStore = defineStore({
         last_name: null,
         email_address: null,
       }
-      await router.push({path:`/`})
+      await router.push({path: `/`})
 
     }
 

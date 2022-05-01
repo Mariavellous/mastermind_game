@@ -1,32 +1,32 @@
 <script>
-  export default {
-    data() {
-      return {
-        info: []
+export default {
+  data() {
+    return {
+      info: []
 
-      }
+    }
+  },
+  methods: {
+    select(event) {
+      this.$store.addEmojiGuess(event.target.value)
+      // console.log(guess)
     },
-    methods: {
-      select(event) {
-        this.$store.addEmojiGuess(event.target.value)
-        // console.log(guess)
-      },
-      undo() {
-        this.$store.deleteLastEmoji()
-      },
-      submit() {
-        this.$store.submitGuess()
-      },
+    undo() {
+      this.$store.deleteLastEmoji()
     },
-    computed:{
-      gameCompleted() {
-        if (this.$store.result !== null){
-          return true
-        }
-        return false
+    submit() {
+      this.$store.submitGuess()
+    },
+  },
+  computed: {
+    gameCompleted() {
+      if (this.$store.result !== null) {
+        return true
       }
+      return false
     }
   }
+}
 </script>
 
 <template>
@@ -43,8 +43,10 @@
       <button @click="select" :disabled="gameCompleted" value="7">🎊</button>
     </div>
 
-    <button @click="submit" :disabled="gameCompleted" class="submit"> Submit </button>
-    <div>  <button @click="undo" :disabled="gameCompleted"> Undo </button></div>
+    <button @click="submit" :disabled="gameCompleted" class="submit"> Submit</button>
+    <div>
+      <button @click="undo" :disabled="gameCompleted"> Undo</button>
+    </div>
   </div>
 </template>
 
@@ -54,13 +56,14 @@ button {
 }
 
 .wrap,
-.action-buttons  {
+.action-buttons {
   margin-left: 25px;
   flex-direction: column;
 }
+
 .submit {
-  margin-top:10px;
-  margin-bottom:10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>
 
