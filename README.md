@@ -23,8 +23,8 @@ MASTERMIND_DATABASE_URL=sqlite:///mastermind.db
 ### 3. Build the frontend
 Make sure to use the recent version of node.js
 
-First, change directory to `frontend` the folder. Use `npm install` to install the frontend dependencies. 
-Use `npm run build` to build the frontend. Change the directory back to the root of the project. 
+First, change directory to the `frontend` folder. Use `npm install` to install the frontend dependencies. 
+Use `npm run build` to build the frontend. Then, change the directory back to the root of the project. 
 
 ```sh 
 cd frontend
@@ -64,7 +64,9 @@ The database holds valuable data and acts as the brain for the entire applicatio
 
 I know that I want different players stored in the database so that they can keep track of their own games. Therefore, I need a `Players` table. 
 
-I want to be able to store the secret code of the specific game. I need to be able to remember all the players' guesses so a `Guesses` table is a must. The player will be playing against the computer that will provide `hints` to the player. Hints will be stored in `Guesses` table as well. 
+I want to be able to store the secret code and result of each game. So I knew I need a `Games` table.
+
+I need to be able to remember all the players' guesses so a `Guesses` table is a must. The player will be playing against the computer that will provide `hints` to the player. Hints will be stored in `Guesses` table as well. 
 
 The tables are related to each other. Each Guess row is tied to a specific `game_id` in the `Games` table. Each Game row is tied to specific players in the `Players` table using the `player_one_id` and `player_two_id` columns.  I want to be able to display all the games of each player to show completed games or in-progress games so that players have option to review it or come back at another time.
 
