@@ -322,7 +322,7 @@ input[data-v-26084dc2] {
 
 
 button {
-  font-size: 2.7rem;
+  font-size: 2rem;
 }
 .wrap,
 .action-buttons {
@@ -334,8 +334,11 @@ button {
   margin-bottom: 10px;
 }
 
+.hint-container[data-v-aee8519a] {
+  margin-left: 10px;
+}
 .hint[data-v-aee8519a] {
-  font-size: 1rem;
+  font-size: 12px;
 }
 .active-row h1[data-v-aee8519a] {
   font-weight: bolder;
@@ -347,12 +350,12 @@ h1[data-v-aee8519a] {
   font-weight: 200;
 }
 .line[data-v-aee8519a] {
-  width: 65px;
-  height: 65px;
+  width: 52px;
+  height: 52px;
 }
 .hint[data-v-aee8519a] {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
 }
 
 
@@ -374,5 +377,6 @@ button[data-v-1bdf0834] {
 
 .playmode[data-v-3586849e] {
   display: flex;
+  max-height: 100%;
   align-items: flex-start;
 }

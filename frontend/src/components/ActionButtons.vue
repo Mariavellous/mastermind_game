@@ -52,7 +52,7 @@ export default {
 
 <style>
 button {
-  font-size: 2.7rem;
+  font-size: 2rem;
 }
 
 .wrap,

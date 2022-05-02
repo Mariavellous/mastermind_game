@@ -21,6 +21,7 @@ MASTERMIND_DATABASE_URL=sqlite:///mastermind.db
 ```
 
 ### 3. Build the frontend
+Make sure to use the recent version of node.js
 
 First, change directory to `frontend` the folder. Use `npm install` to install the frontend dependencies. 
 Use `npm run build` to build the frontend. Change the directory back to the root of the project. 

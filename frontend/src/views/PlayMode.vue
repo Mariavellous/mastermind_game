@@ -57,6 +57,7 @@ export default {
 
 .playmode {
   display: flex;
+  max-height: 100%;
   align-items: flex-start;
 }
 </style>

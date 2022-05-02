@@ -84,8 +84,11 @@ export default {
 </template>
 
 <style scoped>
+.hint-container {
+  margin-left: 10px;
+}
 .hint {
-  font-size: 1rem;
+  font-size: 12px;
 }
 
 .active-row h1 {
@@ -99,13 +102,13 @@ h1 {
 }
 
 .line {
-  width: 65px;
-  height: 65px;
+  width: 52px;
+  height: 52px;
 }
 
 .hint {
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
 }
 
 </style>
