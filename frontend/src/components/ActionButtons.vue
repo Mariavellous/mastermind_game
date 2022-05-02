@@ -39,7 +39,7 @@ export default {
       <button @click="select" :disabled="gameCompleted" value="3">🔔</button>
       <button @click="select" :disabled="gameCompleted" value="4">💐</button>
       <button @click="select" :disabled="gameCompleted" value="5">❤️</button>
-      <button @click="select" :disabled="gameCompleted" value="6">🫶</button>
+      <button @click="select" :disabled="gameCompleted" value="6">🥰</button>
       <button @click="select" :disabled="gameCompleted" value="7">🎊</button>
     </div>
 
