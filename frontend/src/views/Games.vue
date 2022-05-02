@@ -35,7 +35,7 @@ export default {
 
   <main>
     <h1> Mastermind Game </h1>
-    <h5 class="emoji-title">🤵‍♂️👰‍♀💒🔔💐❤️🫶🎊️</h5>
+    <h5 class="emoji-title">🤵‍♂️👰‍♀💒🔔💐❤️🥰🎊️</h5>
     <div class="record">
       <div>Won: {{ this.$store.gamesWon }}&nbsp;</div>
       <div>Lost: {{ this.$store.gamesLost }}</div>

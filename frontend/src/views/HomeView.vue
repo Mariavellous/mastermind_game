@@ -26,7 +26,7 @@
 <template>
   <main>
     <h1> Mastermind Game </h1>
-    <h5 class="emoji-title">🤵‍♂️👰‍♀💒🔔💐❤️🫶🎊️</h5>
+    <h5 class="emoji-title">🤵‍♂️👰‍♀💒🔔💐❤️🥰🎊️</h5>
     <nav>
             <RouterLink :to="gamesLink" class="play">Play</RouterLink>
             <RouterLink v-if="!this.loggedIn" to="/login">Login</RouterLink>
