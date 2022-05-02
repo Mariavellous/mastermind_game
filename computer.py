@@ -26,7 +26,7 @@ class Computer:
     random_integers = response.text.replace("\n", "")
     return random_integers
 
-  # compares if current_guess == secret code
+  # compares if current_guess to secret code, and returns a hint
   def compare_current_guess(self, secret_code, new_guess):
     # create an empty string for hint
     hint = ""

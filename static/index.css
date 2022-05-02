@@ -337,10 +337,14 @@ button {
 .hint[data-v-aee8519a] {
   font-size: 1rem;
 }
+.active-row h1[data-v-aee8519a] {
+  font-weight: bolder;
+}
 h1[data-v-aee8519a] {
   margin-right: 15px;
   width: 50px;
   text-align: right;
+  font-weight: 200;
 }
 .line[data-v-aee8519a] {
   width: 65px;

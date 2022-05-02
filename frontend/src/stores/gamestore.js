@@ -67,6 +67,36 @@ export const useGameStore = defineStore({
       const gameData = await response.json();
       this.updateGameboard(gameData)
     },
+    async getGames() {
+      const response = await fetch(`/games`, {
+        method: 'GET',
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json"
+        },
+      })
+
+      // retrieve list of games data from database
+      const gamesData = await response.json();
+      this.gamesList = gamesData.games
+      this.gamesWon = gamesData.games_won
+      this.gamesLost = gamesData.games_lost
+    },
+    async newGame(mode) {
+      const response = await fetch("/games", {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: mode
+      })
+      // retrieves data about new game_id
+      const gameData = await response.json();
+      this.updateGameboard(gameData)
+      console.log(this.gameId)
+      await router.push({path: `/games/${this.gameId}`})
+    },
 
     updateGameboard(gameData) {
       // extract the list of guesses entry from guess table database
@@ -96,6 +126,7 @@ export const useGameStore = defineStore({
       const currentPlayerData = await response.json();
       // newly registered user as the currentPlayer (ready to play)
       this.updateCurrentPlayer(currentPlayerData)
+
       // lead to display Play game or see list of games
       await router.push({path: '/games'})
     },
@@ -130,36 +161,7 @@ export const useGameStore = defineStore({
       this.currentPlayer.email_address = player.email_address
     },
 
-    async getGames() {
-      const response = await fetch(`/games`, {
-        method: 'GET',
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json"
-        },
-      })
 
-      // retrieve list of games data from database
-      const gamesData = await response.json();
-      this.gamesList = gamesData.games
-      this.gamesWon = gamesData.games_won
-      this.gamesLost = gamesData.games_lost
-    },
-    async newGame(mode) {
-      const response = await fetch("/games", {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: mode
-      })
-      // retrieves data about new game_id
-      const gameData = await response.json();
-      this.updateGameboard(gameData)
-      console.log(this.gameId)
-      await router.push({path: `/games/${this.gameId}`})
-    },
     async logout() {
       const response = await fetch("/logout", {
         method: 'DELETE',

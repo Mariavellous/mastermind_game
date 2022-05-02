@@ -5,7 +5,7 @@
 -- CREATE SCHEMA public;
 
 CREATE TABLE IF NOT EXISTS players(
-    id SERIAL PRIMARY KEY,
+    id INTEGER PRIMARY KEY  AUTOINCREMENT,
     first_name VARCHAR(30) NOT NULL CHECK (length(first_name) > 0),
     last_name VARCHAR(30) NOT NULL CHECK (length(last_name) > 0),
     email_address VARCHAR(50) UNIQUE NOT NULL CHECK(email_address LIKE '%@%.%'),
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS players(
 );
 
 CREATE TABLE IF NOT EXISTS games(
-    id SERIAL CONSTRAINT game_id PRIMARY KEY,
+    id INTEGER CONSTRAINT game_id PRIMARY KEY AUTOINCREMENT,
     player_one_id INTEGER NOT NULL,
     player_two_id INTEGER,
     result BOOLEAN DEFAULT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS games(
 );
 
 CREATE TABLE IF NOT EXISTS guesses(
-    id SERIAL CONSTRAINT table_id PRIMARY KEY,
+    id INTEGER CONSTRAINT table_id PRIMARY KEY AUTOINCREMENT,
     player_id INTEGER NOT NULL,
     game_id INTEGER NOT NULL,
     player_guess VARCHAR(30) NOT NULL,

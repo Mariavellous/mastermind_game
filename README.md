@@ -7,7 +7,7 @@ Can you crack the code?
 ### 1. Database
 
 For the purposes of this demo, a SQLite db file has already been created with sample data in `mastermind.db`  
-Created tables via sql in  `mastermind_tables.sql`
+Tables created via sql in  `mastermind_tables.sql`
 
 ### 2. Environment Variables 
 
@@ -22,10 +22,8 @@ MASTERMIND_DATABASE_URL=sqlite:///mastermind.db
 
 ### 3. Build the frontend
 
-First, change directory to `frontend` folder. In order to execute all the files written in vue.js `npm install` installs the dependencies. 
-Run the 'build' files in the front end. Change directory back to the route of the project. 
-
-
+First, change directory to `frontend` the folder. Use `npm install` to install the frontend dependencies. 
+Use `npm run build` to build the frontend. Change the directory back to the root of the project. 
 
 ```sh 
 cd frontend
@@ -36,8 +34,10 @@ cd ..
 
 #### 4. Install all necessary requirements. 
 
-I used the flask framework to develop the web applications along with flask_sqlalchemy 
-and sqlachemy to communicate to the database. 
+I used the `flask` framework to develop the web application along with `sqlachemy` to communicate with the database. 
+I used `flask_login_manger` to help with user authentication. 
+
+Install the python dependencies 
 
 ```sh
 pip3 intall -r requirements.txt
@@ -57,50 +57,60 @@ Open [http://127.0.0.1:5037](http://127.0.0.1:5037) in your browser
 
 
 ## Thought Process 
-Brainstorm information that needs to be stored in database. This holds valuable data and acts as the brain for the entire application which will lead the direction for the rest of the code. 
 
-I know that I want different players stored in the database so that they can register and login. Therefore, I need a `Players` table. 
+I like to start by thinking about what information needs to be stored in the database.
+The database holds valuable data and acts as the brain for the entire application which will lead the direction for the rest of the code. 
 
-I want to be able to store the secret code of the specific game. I need to be able to remember all the players' guesses so a `Guesses` table is a must. The player will be playing against the computer that will provide hints to the player which will be stored in this table as well. 
+I know that I want different players stored in the database so that they can keep track of their own games. Therefore, I need a `Players` table. 
 
-These tables are reliant of each other: player's guesses and hints are tied to the specific game_id of the game from `Games` table. Then the `Games` table relies on the `Players` table because the specific game is owned to the player's information. I want to be able to display 
-all the games of each players to show completed games or in-progress games so that players have option to review it or come back at another time. 
+I want to be able to store the secret code of the specific game. I need to be able to remember all the players' guesses so a `Guesses` table is a must. The player will be playing against the computer that will provide `hints` to the player. Hints will be stored in `Guesses` table as well. 
 
-INSERT tables database drawing here....
+The tables are related to each other. Each Guess row is tied to a specific `game_id` in the `Games` table. Each Game row is tied to specific players in the `Players` table using the `player_one_id` and `player_two_id` columns.  I want to be able to display all the games of each player to show completed games or in-progress games so that players have option to review it or come back at another time.
 
+![Brainstorm Image](documents/brainstorm.jpg)
+
+I try to break down the problems into smaller pieces or steps. The Trello board helps me organize the tasks.
+[https://trello.com/b/6k6FbbpF/mastermind-game](https://trello.com/b/6k6FbbpF/mastermind-game)
 
 ## Code Structure 
 Created a `Computer Class` responsible for 
 * creating the secret code via random.org api 
-* comparing the player's guess to the secret code and returns the "hint". 
+* comparing the player's guess to the secret code and returning the "hint". 
 
 ### Hint Code Logic
 
 `hint = ""`
-1) Each character of the guess will be compared to the character of the secret code. If it is a match, both character will be replaced with `None` value and add `"Y"` (YES - right position and right character) to the hint string.
-2) Will then loop through each guess character that is not `None` and see if the character is inside the `secret code list`. If character exist in `secret code list` it will be replaced with `None` and add `"M"` (character exist but wrong position) to the hint. 
+1) Each character of the guess will be compared to the character of the secret code. If it is a match, both characters will be replaced with a `None` value in the list, and add `"Y"` to the hint string  (e.g. YES - right position and right character).
+2) Then loop through each guess character that is not `None` and see if the character is inside the `secret code list`. If it is, the character will be replaced with `None`, and `"M"` will be added to the hint (e.g. MAYBE - character exist but wrong position). 
 
 ### Created RESTFUL API routes in the server 
 * `POST` `/games`  --> creates a brand new game 
 * `GET` `/games` --> shows list of games for player 
-* `GET` `/games/<int:game_id>/guesses` --> get specific game_id
-* `POST` `/games/<int:game_id>/guesses` --> creates new guess 
+* `GET` `/games/< int:game_id >/guesses` --> get specific game_id
+* `POST` `/games/< int:game_id >/guesses` --> creates new guess 
 * `POST` `/players` --> register player 
 * `GET` `/login` --> login player 
 * `DELETE` `/logout` --> logout player
 
-Most http requests from the frontend, the database gets updated and stores the new data in the respective tables. 
+After most http requests from the frontend, the database gets updated and stores the new data in the respective tables. 
 The server then returns a response of all data needed to display in the frontend. 
+
+### Game Interface
+![Mastermind Game Structure Image](documents/mastermind-game-structure.jpg)
 
 
 ## Creative Extension Implemented 
-* I used the randomized numbers from random.org API as a key to the dictionary of emojis. I chose the theme wedding as an homage to a very recent special day for me. 🤵‍♂️👰‍♀💒🔔💐❤️🫶🎊️
+
+* I used the randomized numbers from the random.org API as a key to a dictionary of emojis. I chose the theme wedding as an homage to a very recent special day for me. 🤵‍♂️👰‍♀💒🔔💐❤️🫶🎊️
+* Players can resume games at a later time, and create multiple games
 * Players are able to view scores: games won and games lost 
-* Added easy, medium, difficult level by: changing the secret code length to 3, 4, 5. 
+* Added easy, medium, difficult level by: changing the secret code length to 3, 4, or 5. 
 
 
 
 ## Creative Extensions Wishlist
+
+* I want to add the ability for players to play against each other 
 * I would love to for players to be able to choose different themes that will display different emojis for the foodie, animal lover, flags for travelers, etc. 
 * Add difficulty level by: decreasing the number of max_attempts_allowed to 9 or lower. 
 

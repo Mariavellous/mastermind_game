@@ -88,10 +88,14 @@ export default {
   font-size: 1rem;
 }
 
+.active-row h1 {
+  font-weight: bolder;
+}
 h1 {
   margin-right: 15px;
   width: 50px;
   text-align: right;
+  font-weight: 200;
 }
 
 .line {
