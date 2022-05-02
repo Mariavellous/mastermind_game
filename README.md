@@ -1,4 +1,4 @@
-# The Mastermind Game 🤵‍♂️👰‍♀💒🔔💐❤️🫶🎊️
+# The Mastermind Game 🤵‍♂️👰‍♀💒🔔💐❤️🥰🎊️
 Can you crack the code?
 [https://themastermindgame.herokuapp.com/](https://themastermindgame.herokuapp.com/)
 
@@ -102,7 +102,7 @@ The server then returns a response of all data needed to display in the frontend
 
 ## Creative Extension Implemented 
 
-* I used the randomized numbers from the random.org API as a key to a dictionary of emojis. I chose the theme wedding as an homage to a very recent special day for me. 🤵‍♂️👰‍♀💒🔔💐❤️🫶🎊️
+* I used the randomized numbers from the random.org API as a key to a dictionary of emojis. I chose the theme wedding as an homage to a very recent special day for me. 🤵‍♂️👰‍♀💒🔔💐❤️🥰🎊️
 * Players can resume games at a later time, and create multiple games
 * Players are able to view scores: games won and games lost 
 * Added easy, medium, difficult level by: changing the secret code length to 3, 4, or 5. 
